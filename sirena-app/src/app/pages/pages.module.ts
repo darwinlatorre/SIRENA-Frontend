@@ -8,7 +8,10 @@ import { CRUDReservationComponent } from './f-cruds/crud-reservation/crud-reserv
 import { CRUDReservationUpdateComponent } from './f-cruds/crud-reservation-update/crud-reservation-update.component';
 import { CRUDScheduleComponent } from './f-cruds/crud-schedule/crud-schedule.component';
 import { CRUDUsersComponent } from './f-cruds/crud-users/crud-users.component';
-import { LoginComponent } from './f-session-view/login-page/login.component';
+import { LoginComponent } from './f-session-views/login-page/login.component';
+import { UsersViewComponent } from './f-admin-views/users-view/users-view.component';
+import { ClassroomViewComponent } from './f-admin-views/classroom-view/classroom-view.component';
+import { BookingViewComponent } from './f-admin-views/booking-view/booking-view.component';
 
 
 
@@ -22,7 +25,10 @@ import { LoginComponent } from './f-session-view/login-page/login.component';
     CRUDReservationUpdateComponent,
     CRUDScheduleComponent,
     CRUDUsersComponent,
-    LoginComponent
+    LoginComponent,
+    UsersViewComponent,
+    ClassroomViewComponent,
+    BookingViewComponent
     
   ],
   imports: [
@@ -31,7 +37,8 @@ import { LoginComponent } from './f-session-view/login-page/login.component';
   ],
   exports:[
     HomeAdminComponent,
-    HomeUserComponent
+    HomeUserComponent,
+    UsersViewComponent
   ],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA

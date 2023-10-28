@@ -4,6 +4,7 @@ import { CardComponent } from './card/card.component';
 import { GraphicSectionComponent } from './graphic-section/graphic-section.component';
 import { NavSideBarComponent } from './nav-side-bar/nav-side-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { TableComponent } from './table/table.component';
 
 
 
@@ -12,7 +13,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     CardComponent,
     GraphicSectionComponent,
     NavSideBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    TableComponent
   ],
   imports: [
     CommonModule
@@ -21,7 +23,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     CardComponent,
     GraphicSectionComponent,
     NavSideBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    TableComponent
   ]
 })
 export class ComponentsModule { }
