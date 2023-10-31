@@ -12,8 +12,10 @@ register();
 })
 export class HomeAdminComponent {
 
-  //Variables
-    
+  //Seguramente debes hacer un array con todos las reservas para iterarlas
+
+  //Un ejemplo de como se debe usar los modelos de las cards, con el fetch setearlas
+
   reserve_card: Card = {
     title: "IA",
     p_section: ["Programa: ","Coordinador:","Salon:","Fecha de solicitud:"],

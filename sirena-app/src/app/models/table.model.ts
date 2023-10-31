@@ -1,6 +1,6 @@
 export interface Table{
     title: string[],
-    img: string,
-    
-
+    li_content : string[],
+    img?: string,
+    state?:string
 }

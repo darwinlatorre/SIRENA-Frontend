@@ -38,7 +38,9 @@ import { BookingViewComponent } from './f-admin-views/booking-view/booking-view.
   exports:[
     HomeAdminComponent,
     HomeUserComponent,
-    UsersViewComponent
+    UsersViewComponent,
+    ClassroomViewComponent,
+    BookingViewComponent
   ],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA
