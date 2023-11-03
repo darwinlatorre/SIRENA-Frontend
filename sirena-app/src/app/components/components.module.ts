@@ -7,8 +7,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { TableComponent } from './table/table.component';
 import { RouterModule } from '@angular/router';
 
-
-
+/**
+ * Módulo que contiene todos los componentes de la aplicación.
+ */
 @NgModule({
   declarations: [
     CardComponent,
@@ -21,7 +22,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule
   ],
-  exports:[
+  exports: [
     CardComponent,
     GraphicSectionComponent,
     NavSideBarComponent,
