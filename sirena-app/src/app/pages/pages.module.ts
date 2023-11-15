@@ -12,6 +12,10 @@ import { LoginComponent } from './f-session-views/login-page/login.component';
 import { UsersViewComponent } from './f-admin-views/users-view/users-view.component';
 import { ClassroomViewComponent } from './f-admin-views/classroom-view/classroom-view.component';
 import { BookingViewComponent } from './f-admin-views/booking-view/booking-view.component';
+import { BuildingViewComponent } from './f-admin-views/building-view/building-view.component';
+import { FacultiesViewComponent } from './f-admin-views/faculties-view/faculties-view.component';
+import { CrudFacultiesComponent } from './f-cruds/crud-faculties/crud-faculties.component';
+import { CrudBuildingComponent } from './f-cruds/crud-building/crud-building.component';
 
 
 
@@ -29,7 +33,11 @@ import { BookingViewComponent } from './f-admin-views/booking-view/booking-view.
     LoginComponent,
     UsersViewComponent,
     ClassroomViewComponent,
-    BookingViewComponent
+    BookingViewComponent,
+    BuildingViewComponent,
+    FacultiesViewComponent,
+    CrudFacultiesComponent,
+    CrudBuildingComponent
     
   ],
   imports: [

@@ -21,21 +21,27 @@
                         <!-- Capacidad -->
                         <div class="mb-6">
                             <label for="capacidad" class="block mb-2">Capacidad:</label>
-                            <input type="number" class="form-control w-full border rounded p-2" id="capacidad" placeholder="Ingrese la capacidad" required>
+                            <input type="number" class="form-control w-full border rounded p-2" id="capacidad" placeholder="Ingrese la capacidad" min="1" max="500" required>
                         </div>
+                        
                 
                         <!-- Estado del Salón -->
                         <div class="mb-6">
                             <label for="estadoSalon" class="block mb-2">Estado del Salón:</label>
-                            <input type="text" class="form-control w-full border rounded p-2" id="estadoSalon" placeholder="Ingrese el estado del salón" required>
+                            <select class="form-control w-full border rounded p-2" id="estadoSalon" required>
+                                <option value="habilitado">Habilitado</option>
+                                <option value="inhabilitado">Inhabilitado</option>
+                            </select>
                         </div>
-                
-                        <!-- Edificio / Facultad -->
+                        <!-- Building -->
                         <div class="mb-6">
-                            <label for="edificio" class="block mb-2">Edificio/Facultad:</label>
-                            <input type="text" class="form-control w-full border rounded p-2" id="edificio" placeholder="Ingrese el edificio o facultad" required>
+                            <label for="tipoBuilding" class="block mb-2">Edificio:</label>
+                            <select class="form-control w-full border rounded p-2" id="tipoBuilding">
+                                <option *ngFor='let type of buildingTypes' [value]="type.name" [attr.data-id]="type.id">
+                                    {{ type.name }}
+                                </option>
+                            </select>
                         </div>
-                
                         <!-- Tipo de Salón -->
                         <div class="mb-6">
                             <label for="tipoSalon" class="block mb-2">Tipo de Salón:</label>

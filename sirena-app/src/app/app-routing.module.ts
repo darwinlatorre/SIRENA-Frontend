@@ -14,6 +14,10 @@ import { CRUDUsersComponent } from 'src/app/pages/f-cruds/crud-users/crud-users.
 import { CRUDClassroomComponent } from './pages/f-cruds/crud-classroom/crud-classroom.component';
 import { CRUDReservationComponent } from './pages/f-cruds/crud-reservation/crud-reservation.component';
 import { RoleGuard } from './controllers/RoleGard';
+import { BuildingViewComponent } from './pages/f-admin-views/building-view/building-view.component';
+import { FacultiesViewComponent } from './pages/f-admin-views/faculties-view/faculties-view.component';
+import { CrudBuildingComponent } from './pages/f-cruds/crud-building/crud-building.component';
+import { CrudFacultiesComponent } from './pages/f-cruds/crud-faculties/crud-faculties.component';
 // ... importa los demás componentes de cruds
 
 const routes: Routes = [
@@ -26,6 +30,11 @@ const routes: Routes = [
   {path: 'admin/users/create', component: CRUDUsersComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] }},
   {path: 'admin/classroom/create', component: CRUDClassroomComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] }},
   {path: 'admin/booking/create', component: CRUDReservationComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] }},
+  {path: 'admin/building', component: BuildingViewComponent, canActivate: [RoleGuard], data: {roles: ['ROLE_ADMIN']}},
+  {path: 'admin/faculties', component: FacultiesViewComponent, canActivate: [RoleGuard], data: {roles: ['ROLE_ADMIN']}},
+
+  {path: 'admin/building/create', component: CrudBuildingComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
+  {path: 'admin/faculties/create', component: CrudFacultiesComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
   {path: '', component: LoginComponent}
   // ... añade las rutas para los componentes dentro de f-cruds
 ];

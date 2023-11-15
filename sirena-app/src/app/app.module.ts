@@ -7,11 +7,6 @@ import { PagesModule } from './pages/pages.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
-/**
- * Módulo principal de la aplicación.
- */
 @NgModule({
   declarations: [
     AppComponent,
