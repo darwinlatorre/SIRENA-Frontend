@@ -1,4 +1,4 @@
-<div class = "bg-gray-300 w-full h-screen">
+<div class = "w-full h-screen">
     <app-nav-side-bar></app-nav-side-bar>
     <div class="p-4 sm:ml-64">
       <div
@@ -14,7 +14,8 @@
             </button>
 
         </div>
-        <div class="max-w-[80%]">
+        <div class="max-w-[40%]">
+          <app-table [table] = "table_building" [route]="route"></app-table>
         </div>
       </div>
     </div>

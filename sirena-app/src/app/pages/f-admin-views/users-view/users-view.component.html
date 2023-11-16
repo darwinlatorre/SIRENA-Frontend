@@ -1,4 +1,4 @@
-<div class = "bg-gray-300 w-full h-screen">
+<div class = " w-full h-screen">
   <app-nav-side-bar></app-nav-side-bar>
   <div class="p-4 sm:ml-64">
     <div
@@ -13,8 +13,6 @@
         (click)="navigateToCreateUser()">  <!-- Aquí usas el evento (click) -->
         Agregar
       </a>
-    
-    
       </div>
       <div class="max-w-[80%]">
         <app-table [table] = "table_user" [route]="route"></app-table>

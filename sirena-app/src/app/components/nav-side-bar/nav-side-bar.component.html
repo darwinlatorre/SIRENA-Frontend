@@ -252,10 +252,10 @@
   aria-label="Sidebar"
 >
   <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-    <ul class="space-y-2 font-medium">
+    <ul class="space-y-3">
       <li>
         <a
-        [routerLink]="['/admin/home']"
+          [routerLink]="['/admin/home']"
           class="flex items-center text-gray-900 p-2 rounded-lg w-[127px] hover:bg-gray-100"
         >
           <svg
@@ -271,12 +271,14 @@
             />
           </svg>
 
-          <span class="flex-1 ml-3 text-[#838484] font-bold whitespace-nowrap">Inicio</span>
+          <span class="flex-1 ml-3 text-[#838484] font-bold whitespace-nowrap"
+            >Inicio</span
+          >
         </a>
       </li>
       <li>
         <a
-        [routerLink]="['/admin/users']"
+          [routerLink]="['/admin/users']"
           class="flex items-center p-2 text-gray-900 rounded-lg w-[127px] hover:bg-gray-100"
         >
           <svg
@@ -293,7 +295,6 @@
               d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
             />
           </svg>
-
           <span class="flex-1 ml-3 text-[#838484] font-bold whitespace-nowrap"
             >Usuarios</span
           >
@@ -301,7 +302,7 @@
       </li>
       <li>
         <a
-        [routerLink]="['/admin/classroom']"
+          [routerLink]="['/admin/classroom']"
           class="flex items-center p-2 text-gray-900 rounded-lg w-[127px] hover:bg-gray-100"
         >
           <svg
@@ -323,7 +324,7 @@
       </li>
       <li>
         <a
-        [routerLink]="['/admin/building']"
+          [routerLink]="['/admin/building']"
           class="flex items-center p-2 text-gray-900 rounded-lg w-[127px] hover:bg-gray-100"
         >
           <svg
@@ -331,11 +332,14 @@
             width="30"
             height="30"
             fill="currentColor"
-            class="bi bi-box"
+            class="bi bi-building"
             viewBox="0 0 16 16"
           >
             <path
-              d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"
+              d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"
+            />
+            <path
+              d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"
             />
           </svg>
           <span class="flex-1 ml-3 text-[#838484] font-bold whitespace-nowrap"
@@ -345,19 +349,22 @@
       </li>
       <li>
         <a
-        [routerLink]="['/admin/faculties']"
-          class="flex items-center p-2 text-gray-900 rounded-lg w-[127px] hover:bg-gray-100"
+          [routerLink]="['/admin/faculties']"
+          class="flex items-center p-2 text-gray-900 rounded-lg w-[140px] hover:bg-gray-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
             height="30"
             fill="currentColor"
-            class="bi bi-box"
+            class="bi bi-buildings"
             viewBox="0 0 16 16"
           >
             <path
-              d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"
+              d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z"
+            />
+            <path
+              d="M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z"
             />
           </svg>
           <span class="flex-1 ml-3 text-[#838484] font-bold whitespace-nowrap"
@@ -365,16 +372,15 @@
           >
         </a>
       </li>
-      
       <li>
         <a
-        [routerLink]="['/admin/booking']"
+          [routerLink]="['/admin/booking']"
           class="flex items-center p-2 text-gray-900 rounded-lg w-[127px] hover:bg-gray-100"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
+            width="40"
+            height="40"
             fill="currentColor"
             class="bi bi-calendar-check"
             viewBox="0 0 16 16"
@@ -393,27 +399,26 @@
       </li>
       <li class="flex justify-center mt-8">
         <a
-        class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-        (click)="logout()"
-      >
-        <div class="flex gap-2 p-2 border items-center rounded-xl w-[119px]">
-          <svg
-            width="21"
-            height="24"
-            viewBox="0 0 21 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="ml-3"
-          >
-            <path
-              d="M8.16115 16.7318L9.78417 18.6057L15.5396 11.9608L9.78417 5.3159L8.16115 7.18976L11.1309 10.6318H0V13.2898H11.1309L8.16115 16.7318ZM18.4173 0H2.30216C1.02446 0 0 1.19608 0 2.65795V7.97386H2.30216V2.65795H18.4173V21.2636H2.30216V15.9477H0V21.2636C0 22.7255 1.02446 23.9216 2.30216 23.9216H18.4173C19.6835 23.9216 20.7194 22.7255 20.7194 21.2636V2.65795C20.7194 1.19608 19.6835 0 18.4173 0Z"
-              fill="#B91C1C"
-            />
-          </svg>
-          <span class="font-bold text-xl">Salir</span>
-        </div>
-      </a>
-      
+          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          (click)="logout()"
+        >
+          <div class="flex gap-2 p-2 border items-center rounded-xl w-[119px]">
+            <svg
+              width="21"
+              height="24"
+              viewBox="0 0 21 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ml-3"
+            >
+              <path
+                d="M8.16115 16.7318L9.78417 18.6057L15.5396 11.9608L9.78417 5.3159L8.16115 7.18976L11.1309 10.6318H0V13.2898H11.1309L8.16115 16.7318ZM18.4173 0H2.30216C1.02446 0 0 1.19608 0 2.65795V7.97386H2.30216V2.65795H18.4173V21.2636H2.30216V15.9477H0V21.2636C0 22.7255 1.02446 23.9216 2.30216 23.9216H18.4173C19.6835 23.9216 20.7194 22.7255 20.7194 21.2636V2.65795C20.7194 1.19608 19.6835 0 18.4173 0Z"
+                fill="#B91C1C"
+              />
+            </svg>
+            <span class="font-bold text-xl">Salir</span>
+          </div>
+        </a>
       </li>
     </ul>
   </div>
