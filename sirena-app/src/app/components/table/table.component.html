@@ -68,7 +68,7 @@
                             <span class="w-4 h-4 bg-white border border-[#CFCFCF] rounded-full mr-2"></span>
                             <div *ngFor="let table_li of table.li_content let i = index let last = last;"
                                 class="flex-1">
-                                <div class="flex ml-3">
+                                <div class="flex-1 ml-3">
                                     <span class="text-[12px]">
                                         {{table_li}}
                                     </span>
@@ -91,6 +91,28 @@
     </div>
 
     <div *ngSwitchCase="'building_view'">
+        <!-- Titles -->
+        <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
+            <div *ngFor="let title of table.title" class=" flex-1 text-center">
+                <h5 class="mb-2 text-sm font-bold tracking-tight text-white"> {{title}} </h5>
+            </div>
+        </div>
+    
+        <!-- Rows -->
+        <div class="bg-white border-gray-200 gap-2 p-2 rounded-b-lg">
+            <ul>
+                <li *ngFor="let row of table.li_content" class="flex items-center hover:bg-slate-100">
+                    <ng-container *ngFor="let cell of row">
+                        <div class="flex-1 flex justify-center ">
+                            <span class="text-[12px]"> {{cell}} </span>
+                        </div>
+                    </ng-container>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div *ngSwitchCase="'faculty_view'">
         <!-- Titles -->
         <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
             <div *ngFor="let title of table.title" class=" flex-1 text-center">
