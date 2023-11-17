@@ -42,10 +42,14 @@ export class LoginComponent {
           localStorage.setItem("jwt",token);
           
           try {
+
             const decodedToken: any = jwtDecode(token);
             const role = decodedToken.role;
+            const userId = decodedToken.subId;
             
             localStorage.setItem("role", role);
+            localStorage.setItem("id", userId);
+            
             // Redirección basada en el rol
             if (['ROLE_ADMIN', 'ROLE_COORDINADOR'].includes(role)) {
               this.router.navigateByUrl('/admin/home');
