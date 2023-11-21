@@ -15,7 +15,7 @@ export class CrudFacultiesComponent implements OnInit  {
   constructor(private http: HttpClient, private router: Router) {}
 
   private headers!: HttpHeaders; // Variable para los headers
-  public facultiesType: any[] = [];
+  public BuildingType: any[] = [];
 
   ngOnInit(): void {
     this.initializeHeaders();
@@ -37,8 +37,8 @@ export class CrudFacultiesComponent implements OnInit  {
   private async loadFacultiesType() {
     try {
       const response2 = await this.http.get('api/v1/building', { headers: this.headers }).toPromise();
-      this.facultiesType = response2 as any[];
-      console.log(this.facultiesType + " tipos de facultad");
+      this.BuildingType = response2 as any[];
+      console.log(this.BuildingType + " tipos de edificio");
       console.log(response2);
     } catch (error) {
       console.error('Hubo un error al cargar los edificios', error);

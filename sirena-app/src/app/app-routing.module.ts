@@ -18,6 +18,9 @@ import { BuildingViewComponent } from './pages/f-admin-views/building-view/build
 import { FacultiesViewComponent } from './pages/f-admin-views/faculties-view/faculties-view.component';
 import { CrudBuildingComponent } from './pages/f-cruds/crud-building/crud-building.component';
 import { CrudFacultiesComponent } from './pages/f-cruds/crud-faculties/crud-faculties.component';
+import { ProgramsViewComponent } from './pages/f-admin-views/programs-view/programs-view.component';
+import { CrudProgramsComponent } from './pages/f-cruds/crud-programs/crud-programs.component';
+
 // ... importa los demás componentes de cruds
 
 const routes: Routes = [
@@ -35,6 +38,10 @@ const routes: Routes = [
 
   {path: 'admin/building/create', component: CrudBuildingComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
   {path: 'admin/faculties/create', component: CrudFacultiesComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
+
+  {path: 'admin/programs', component: ProgramsViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
+  {path: 'admin/programs/create', component: CrudProgramsComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
+
   {path: '', component: LoginComponent}
   // ... añade las rutas para los componentes dentro de f-cruds
 ];

@@ -16,6 +16,8 @@ import { BuildingViewComponent } from './f-admin-views/building-view/building-vi
 import { FacultiesViewComponent } from './f-admin-views/faculties-view/faculties-view.component';
 import { CrudFacultiesComponent } from './f-cruds/crud-faculties/crud-faculties.component';
 import { CrudBuildingComponent } from './f-cruds/crud-building/crud-building.component';
+import { ProgramsViewComponent } from './f-admin-views/programs-view/programs-view.component';
+import { CrudProgramsComponent } from './f-cruds/crud-programs/crud-programs.component';
 
 
 
@@ -37,7 +39,9 @@ import { CrudBuildingComponent } from './f-cruds/crud-building/crud-building.com
     BuildingViewComponent,
     FacultiesViewComponent,
     CrudFacultiesComponent,
-    CrudBuildingComponent
+    CrudBuildingComponent,
+    ProgramsViewComponent,
+    CrudProgramsComponent
     
   ],
   imports: [

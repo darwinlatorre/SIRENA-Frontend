@@ -23,7 +23,7 @@
                         <div class="mb-6">
                             <label for="tipoEdificio" class="block mb-2">Edificio:</label>
                             <select class="form-control w-full border rounded p-2" id="tipoEdificio" required>
-                                <option *ngFor='let type of facultiesType' [value]="type.name" [attr.data-id]="type.id">
+                                <option *ngFor='let type of BuildingType' [value]="type.name" [attr.data-id]="type.id">
                                     {{ type.name }}
                             </option>
                             </select>
