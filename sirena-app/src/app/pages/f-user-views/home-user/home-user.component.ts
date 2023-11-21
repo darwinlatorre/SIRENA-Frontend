@@ -1,6 +1,7 @@
 import { HttpHeaders,HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home-user',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeUserComponent  {
 
+  
 
   constructor(private http: HttpClient, private router: Router) {}
   
@@ -16,6 +18,11 @@ export class HomeUserComponent  {
   public classroom: any[] = [];
   public incidences: any[]=[];
   public faculty: any[]=[];
+  public programs: any[]=[];
+  
+  
+  
+
 
 
   ngOnInit(): void {
@@ -23,6 +30,7 @@ export class HomeUserComponent  {
     this.loadClassroom();
     this.loadIncidence();
     this.loadFaculty();
+    this.loadPrograms();
   }
 
 
@@ -36,6 +44,16 @@ export class HomeUserComponent  {
     this.headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+  }
+  private async loadPrograms() {
+    try {
+      const response4 = await this.http.get('api/v1/programs', { headers: this.headers }).toPromise();
+      this.programs = response4 as any[];
+      console.log(JSON.stringify(response4) + " programas");
+    } catch (error) {
+      console.error('Hubo un error al cargar los programas', error);
+    }
+
   }
   private async loadClassroom() {
     try {
@@ -72,32 +90,25 @@ export class HomeUserComponent  {
 
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    const parteFechaSolicitud = event.target.querySelector('#fechaSolicitud').value;
-    const parteHoraSolicitud = event.target.querySelector('#horaSolicitud').value;
-    const rsv_fecha_solicitud = new Date(parteFechaSolicitud + 'T' + parteHoraSolicitud + ':00.000Z').toISOString();
-    console.log(rsv_fecha_solicitud + " fecha de solicitud");
 
     const parteFechaReservaInicio = event.target.querySelector('#fechaReservaInicio').value;
     const parteHoraReservaInicio = event.target.querySelector('#horaReservaInicio').value;
     const rsv_fecha_reserva_inicio = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaInicio + ':00.000Z').toISOString();
     console.log(rsv_fecha_reserva_inicio + " fecha de Inicio de la reserva");
 
-    const parteFechaReservaFin = event.target.querySelector('#fechaReservaFin').value;
     const parteHoraReservaFin = event.target.querySelector('#horaReservaFin').value;
-    const rsv_hora_fin = new Date(parteFechaReservaFin + 'T' + parteHoraReservaFin + ':00.000Z').toISOString();
-    console.log(rsv_hora_fin + " fecha de Inicio de la reserva");
+    const rsv_hora_fin = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaFin + ':00.000Z').toISOString();
+    console.log(rsv_hora_fin + " fecha de fin de la reserva");
+
 
     const rsv_num_estudiantes = event.target.querySelector('#numEstudiantes').value;
     console.log(rsv_num_estudiantes + " número de estudiantes");
 
+    const rsv_estado = "Pendiente";
+
     const rsv_detalles = event.target.querySelector('#detalles').value;
     console.log(rsv_detalles + " detalles de la reserva");
 
-    const rsv_estado = "Pendiente";
-
-    const incidenceTypeSelect = form.querySelector('#incidencia') as HTMLSelectElement;
-    let rsv_incidencia_id = incidenceTypeSelect.selectedOptions[0].getAttribute('data-id');
-    console.log(rsv_incidencia_id + " id de la incidencia");
 
     const classroomTypeSelect = form.querySelector('#Salon') as HTMLSelectElement;
     const rsv_cls_id = classroomTypeSelect.selectedOptions[0].getAttribute('data-id');
@@ -107,39 +118,50 @@ export class HomeUserComponent  {
     const rsv_faculty_id = facultyTypeSelect.selectedOptions[0].getAttribute('data-id');
     console.log(rsv_faculty_id + " facultad");
 
-
-
-    
-
     const rsv_usr_id = localStorage.getItem("id");
     console.log(rsv_usr_id);
-    const rsv_id = 1;
 
+    const programsTypeSelect = form.querySelector('#programa') as HTMLSelectElement;
+    const rsv_program_id = programsTypeSelect.selectedOptions[0].getAttribute('data-id');
+    console.log(rsv_program_id);
 
     const classroomData = {
-      rsv_id,
-      rsv_fecha_solicitud,
       rsv_fecha_reserva_inicio,
       rsv_hora_fin,
       rsv_num_estudiantes,
       rsv_estado,
       rsv_detalles,
-      rsv_incidencia_id,
       rsv_cls_id,
       rsv_usr_id,
-      rsv_faculty_id
+      rsv_faculty_id,
+      rsv_program_id
     };
 
     console.log('JSON que se enviará:', JSON.stringify(classroomData, null, 2));
+    
 
     try {
       const response = await this.http.post('api/v1/bookings', classroomData, { headers: this.headers }).toPromise();
       console.log(response);
-      alert('reserva creado exitosamente');
-    } catch (error) {
-      console.error('Hubo un error al crear la reserva', error);
-      // Aquí podrías manejar diferentes tipos de errores y dar feedback correspondiente.
+      alert('Reserva creada exitosamente');
+    } catch (e: any) {
+      // Asumiendo que e.error contiene el mensaje de error específico que quieres mostrar
+      if (e && e.error && typeof e.error === 'string') {
+        alert(e.error);
+      } else {
+        console.log("Error general: " + JSON.stringify(e));
+      }
     }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
 
 
     

@@ -8,17 +8,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./crud-reservation.component.css']
 })
 export class CRUDReservationComponent implements OnInit{
-  constructor(private http: HttpClient, private router: Router) {}
 
+
+  constructor(private http: HttpClient, private router: Router) {}
+  
   private headers!: HttpHeaders; // Variable para los headers
-  public users: any[] = [];
-  public classroom: any[]=[];
+  public classroom: any[] = [];
+  public incidences: any[]=[];
+  public faculty: any[]=[];
+  public programs: any[]=[];
+  
+  
+  
+
+
 
   ngOnInit(): void {
     this.initializeHeaders();
     this.loadClassroom();
-    this.loadUsers();
+    this.loadIncidence();
+    this.loadFaculty();
+    this.loadPrograms();
   }
+
+
   private initializeHeaders(): void {
     const token = localStorage.getItem('jwt');
     if (!token) {
@@ -30,58 +43,121 @@ export class CRUDReservationComponent implements OnInit{
       'Authorization': `Bearer ${token}`
     });
   }
-  private async loadClassroom(){
-    try{
-      const response2 = await this.http.get('api/v1/classroom', { headers: this.headers }).toPromise();
-      this.classroom = response2 as any[];
-      console.log(JSON.stringify(response2) + "salones");
-    }catch(error){
-      console.error("Hubo un error al cargas los salones",error)
-    }
-  }
-  private async loadUsers() {
+  private async loadPrograms() {
     try {
-      const response3 = await this.http.get('api/v1/user', { headers: this.headers }).toPromise();
-      this.users = response3 as any[];
-      console.log(JSON.stringify(response3) + "usuarios");
+      const response4 = await this.http.get('api/v1/programs', { headers: this.headers }).toPromise();
+      this.programs = response4 as any[];
+      console.log(JSON.stringify(response4) + " programas");
     } catch (error) {
-      console.error('Hubo un error al cargar los usuarios', error);
+      console.error('Hubo un error al cargar los programas', error);
+    }
+
+  }
+  private async loadClassroom() {
+    try {
+      const response3 = await this.http.get('api/v1/classroom', { headers: this.headers }).toPromise();
+      this.classroom = response3 as any[];
+      console.log(JSON.stringify(response3) + "Salones");
+    } catch (error) {
+      console.error('Hubo un error al cargar los tipos de salón', error);
+    }
+
+  }
+  private async loadIncidence() {
+    try {
+      const response2 = await this.http.get('api/v1/incidence', { headers: this.headers }).toPromise();
+      this.incidences = response2 as any[];
+      console.log(JSON.stringify(response2) + "Incidencias");
+    } catch (error) {
+      console.error('Hubo un error al cargar las incidencias', error);
+    }
+
+  }
+  private async loadFaculty() {
+    try {
+      const response = await this.http.get('api/v1/faculty', { headers: this.headers }).toPromise();
+      this.faculty = response as any[];
+      console.log(JSON.stringify(response) + " Facultad");
+    } catch (error) {
+      console.error('Hubo un error al cargar las facultades', error);
     }
 
   }
 
   async registerReservation(event: any){
-    console.log("estoy entrando ");
+
     event.preventDefault();
     const form = event.target as HTMLFormElement;
 
-    const parteFechaSolicitud = event.target.querySelector('#fechaSolicitud').value;
-    const parteHoraSolicitud = event.target.querySelector('#horaSolicitud').value;
-    const fechaSolicitud = new Date(parteFechaSolicitud + 'T' + parteHoraSolicitud + ':00.000Z').toISOString();
-    console.log(fechaSolicitud + " fecha de solicitud");
-
     const parteFechaReservaInicio = event.target.querySelector('#fechaReservaInicio').value;
     const parteHoraReservaInicio = event.target.querySelector('#horaReservaInicio').value;
-    const fechaReservaInicio = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaInicio + ':00.000Z').toISOString();
-    console.log(fechaReservaInicio + " fecha de Inicio de la reserva");
+    const rsv_fecha_reserva_inicio = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaInicio + ':00.000Z').toISOString();
+    console.log(rsv_fecha_reserva_inicio + " fecha de Inicio de la reserva");
 
-    const parteFechaReservaFin = event.target.querySelector('#fechaReservaFin').value;
     const parteHoraReservaFin = event.target.querySelector('#horaReservaFin').value;
-    const fechaReservaFin = new Date(parteFechaReservaFin + 'T' + parteHoraReservaFin + ':00.000Z').toISOString();
-    console.log(fechaReservaFin + " fecha de Inicio de la reserva");
+    const rsv_hora_fin = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaFin + ':00.000Z').toISOString();
+    console.log(rsv_hora_fin + " fecha de fin de la reserva");
 
-    const numEstudiantes = event.target.querySelector('#numEstudiantes').value;
-    console.log(numEstudiantes + " número de estudiantes");
 
-    const estadoReserva = event.target.querySelector('#estadoReserva').value;
-    console.log(estadoReserva + " estado de la reserva");
+    const rsv_num_estudiantes = event.target.querySelector('#numEstudiantes').value;
+    console.log(rsv_num_estudiantes + " número de estudiantes");
 
-    const detalles = event.target.querySelector('#detalles').value;
-    console.log(detalles + " detalles de la reserva");
+    const rsv_estado = "Pendiente";
 
-    const codIncidencia = event.target.querySelector('#codIncidencia').value;
-    console.log(codIncidencia + " código de la incidencia");
+    const rsv_detalles = event.target.querySelector('#detalles').value;
+    console.log(rsv_detalles + " detalles de la reserva");
 
+
+    const classroomTypeSelect = form.querySelector('#Salon') as HTMLSelectElement;
+    const rsv_cls_id = classroomTypeSelect.selectedOptions[0].getAttribute('data-id');
+    console.log(rsv_cls_id + " id del salon");
+
+    const facultyTypeSelect = form.querySelector('#facultad') as HTMLSelectElement;
+    const rsv_faculty_id = facultyTypeSelect.selectedOptions[0].getAttribute('data-id');
+    console.log(rsv_faculty_id + " facultad");
+
+    const rsv_usr_id = localStorage.getItem("id");
+    console.log(rsv_usr_id);
+
+    const programsTypeSelect = form.querySelector('#programa') as HTMLSelectElement;
+    const rsv_program_id = programsTypeSelect.selectedOptions[0].getAttribute('data-id');
+    console.log(rsv_program_id);
+
+    const classroomData = {
+      rsv_fecha_reserva_inicio,
+      rsv_hora_fin,
+      rsv_num_estudiantes,
+      rsv_estado,
+      rsv_detalles,
+      rsv_cls_id,
+      rsv_usr_id,
+      rsv_faculty_id,
+      rsv_program_id
+    };
+
+    console.log('JSON que se enviará:', JSON.stringify(classroomData, null, 2));
+
+    try {
+      const response = await this.http.post('api/v1/bookings', classroomData, { headers: this.headers }).toPromise();
+      console.log(response);
+      alert('Reserva creada exitosamente');
+    } catch (e: any) {
+      // Asumiendo que e.error contiene el mensaje de error específico que quieres mostrar
+      if (e && e.error && typeof e.error === 'string') {
+        alert(e.error);
+      } else {
+        console.log("Error general: " + JSON.stringify(e));
+      }
+    }
+    
+    
+
+
+    
   }
+
+
+
+
 
 }

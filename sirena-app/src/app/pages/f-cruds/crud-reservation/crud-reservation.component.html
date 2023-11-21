@@ -1,4 +1,5 @@
-<app-nav-side-bar></app-nav-side-bar> 
+
+<app-nav-side-bar></app-nav-side-bar>
 <section class="h-screen bg-gray-200">
     <div class="container mx-auto py-5 h-full">
         <div class="flex justify-center items-center h-full">
@@ -10,15 +11,6 @@
                 </div>
 
                 <form (submit)="registerReservation($event)" class="flex flex-wrap -mx-2">
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="fechaSolicitud" class="block text-gray-700">Fecha de Solicitud:</label>
-                        <input type="date" id="fechaSolicitud" name="fecha" class="w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="horaSolicitud" class="block text-gray-700">Hora de Solicitud:</label>
-                        <input type="time" id="horaSolicitud" name="hora" class="w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
 
                     <div class="px-2 w-full md:w-1/2 mb-4">
                         <label for="fechaReservaInicio" class="block text-gray-700">Fecha de Inicio de Reserva:</label>
@@ -31,12 +23,7 @@
                     </div>
 
                     <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="fechaReservaFin" class="block text-gray-700">Fecha de Fin de Reserva:</label>
-                        <input type="date" id="fechaReservaFin" name="fecha" class="w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="horaReservaFin" class="block text-gray-700">Hora de Fin de Reserva:</label>
+                        <label for="horaReservaFin" class="block text-gray-700">Hora final de Reserva:</label>
                         <input type="time" id="horaReservaFin" name="hora" class="w-full border-gray-300 rounded-md shadow-sm">
                     </div>
 
@@ -45,13 +32,6 @@
                         <input type="number" id="numEstudiantes" class="w-full border-gray-300 rounded-md shadow-sm" placeholder="Ingrese el número de estudiantes" min="1" max="500" required>
                     </div>
 
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="estadoReserva" class="block text-gray-700">Estado de la reserva:</label>
-                        <select id="estadoReserva" class="w-full border-gray-300 rounded-md shadow-sm" required>
-                            <option value="PENDIENTE">Pendiente</option>
-                            <option value="ACEPTADA">Aceptada</option>
-                        </select>
-                    </div>
 
                     <div class="px-2 w-full md:w-1/2 mb-4">
                         <label for="detalles" class="block text-gray-700">Detalles:</label>
@@ -59,24 +39,49 @@
                     </div>
 
 
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="codIncidencia" class="block text-gray-700">Codigo de la incidencia:</label>
-                        <input type="number" id="codIncidencia" class="w-full border-gray-300 rounded-md shadow-sm" placeholder="Ingrese el codigo de la incidencia" min="1" max="500" required>
+                    <div class="mb-6">
+                        <label for="Salon" class="block mb-2">Salón:</label>
+                        <select class="form-control w-full border rounded p-2" id="Salon">
+                            <option *ngFor='let type of classroom' [value]="type.name" [attr.data-id]="type.id">
+                                {{ type.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="facultad" class="block mb-2">Facultad:</label>
+                        <select class="form-control w-full border rounded p-2" id="facultad">
+                            <option *ngFor='let type of faculty' [value]="type.name" [attr.data-id]="type.id">
+                                {{ type.name }}
+                            </option>
+                        </select>
                     </div>
 
                     <div class="mb-6">
-                        <label for="tipoBuilding" class="block mb-2">Edificio:</label>
-                        <select class="form-control w-full border rounded p-2" id="tipoBuilding">
-                            <option *ngFor='let type of classroom' [value]="type.name" [attr.data-id]="type.id">
+                        <label for="programa" class="block mb-2">Programa:</label>
+                        <select class="form-control w-full border rounded p-2" id="programa">
+                            <option *ngFor='let type of programs' [value]="type.name" [attr.data-id]="type.id">
                                 {{ type.name }}
                             </option>
                         </select>
                     </div>
 
 
+                    
+
+                   <!--<div class="mb-6">
+                        <label for="tipoBuilding" class="block mb-2">Edificio:</label>
+                        <select class="form-control w-full border rounded p-2" id="tipoBuilding">
+                            <option *ngFor='let type of classroom' [value]="type.name" [attr.data-id]="type.id">
+                                {{ type.name }}
+                            </option>
+                        </select>
+                    </div>--> 
+
+
 
                     <div class="w-full px-2 flex justify-end mt-6">
                         <button type="submit" class="btn bg-black text-white px-4 py-2 rounded">Crear</button>
+                     
                     </div>
                 </form>
             </div>

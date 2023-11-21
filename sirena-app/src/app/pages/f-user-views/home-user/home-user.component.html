@@ -10,15 +10,6 @@
                 </div>
 
                 <form (submit)="registerReservation($event)" class="flex flex-wrap -mx-2">
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="fechaSolicitud" class="block text-gray-700">Fecha de Solicitud:</label>
-                        <input type="date" id="fechaSolicitud" name="fecha" class="w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="horaSolicitud" class="block text-gray-700">Hora de Solicitud:</label>
-                        <input type="time" id="horaSolicitud" name="hora" class="w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
 
                     <div class="px-2 w-full md:w-1/2 mb-4">
                         <label for="fechaReservaInicio" class="block text-gray-700">Fecha de Inicio de Reserva:</label>
@@ -31,12 +22,7 @@
                     </div>
 
                     <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="fechaReservaFin" class="block text-gray-700">Fecha de Fin de Reserva:</label>
-                        <input type="date" id="fechaReservaFin" name="fecha" class="w-full border-gray-300 rounded-md shadow-sm">
-                    </div>
-
-                    <div class="px-2 w-full md:w-1/2 mb-4">
-                        <label for="horaReservaFin" class="block text-gray-700">Hora de Fin de Reserva:</label>
+                        <label for="horaReservaFin" class="block text-gray-700">Hora final de Reserva:</label>
                         <input type="time" id="horaReservaFin" name="hora" class="w-full border-gray-300 rounded-md shadow-sm">
                     </div>
 
@@ -51,14 +37,6 @@
                         <input type="text" id="detalles" class="w-full border-gray-300 rounded-md shadow-sm" placeholder="Ingrese detalles" required>
                     </div>
 
-                    <div class="mb-6">
-                        <label for="incidencia" class="block mb-2">Incidencia:</label>
-                        <select class="form-control w-full border rounded p-2" id="incidencia">
-                            <option *ngFor='let type of incidences' [value]="type.ins_name" [attr.data-id]="type.ins_id">
-                                {{ type.ins_name }}
-                            </option>
-                        </select>
-                    </div>
 
                     <div class="mb-6">
                         <label for="Salon" class="block mb-2">Salón:</label>
@@ -72,6 +50,15 @@
                         <label for="facultad" class="block mb-2">Facultad:</label>
                         <select class="form-control w-full border rounded p-2" id="facultad">
                             <option *ngFor='let type of faculty' [value]="type.name" [attr.data-id]="type.id">
+                                {{ type.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="programa" class="block mb-2">Programa:</label>
+                        <select class="form-control w-full border rounded p-2" id="programa">
+                            <option *ngFor='let type of programs' [value]="type.name" [attr.data-id]="type.id">
                                 {{ type.name }}
                             </option>
                         </select>
