@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'; // Importa el Router
-import { Facultie } from 'src/app/models/facultie.model';
+import { Faculty } from 'src/app/models/faculty.model';
 import { Table } from 'src/app/models/table.model';
 
 @Component({
@@ -12,10 +12,10 @@ import { Table } from 'src/app/models/table.model';
 export class FacultiesViewComponent {
 
   route: string = "faculty_view";
-  faculties: Facultie[] = [];
+  faculties: Faculty[] = [];
 
   table_faculty: Table = {
-    title: ["ID", "Nombre"],
+    title: ["ID", "Nombre", "Edificio"],
     li_content: []
   };
   
@@ -38,7 +38,7 @@ export class FacultiesViewComponent {
         'Authorization': `Bearer ${token}`
       });
   
-      this.http.get<Facultie[]>('/api/v1/faculty', { headers: headers })
+      this.http.get<Faculty[]>('/api/v1/faculty', { headers: headers })
         .subscribe({
           next: (data) => {
             console.log('Buildings data received:', data);
@@ -46,7 +46,8 @@ export class FacultiesViewComponent {
             this.faculties = data;
             this.table_faculty.li_content = this.faculties.map(faculty => [
               faculty.id.toString(),
-              faculty.name
+              faculty.name,
+              faculty.building.name
             ]);
           },
           error: (err) => {

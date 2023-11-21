@@ -58,9 +58,9 @@
                     <div class="mb-6">
                         <label for="programa" class="block mb-2">Programa:</label>
                         <select class="form-control w-full border rounded p-2" id="programa">
-                            <option *ngFor='let type of programs' [value]="type.name" [attr.data-id]="type.id">
+                            <option *ngFor='let type of programs' [value]="type.id" [attr.data-id]="type.id">
                                 {{ type.name }}
-                            </option>
+                            </option>
                         </select>
                     </div>
 

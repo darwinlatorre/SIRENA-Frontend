@@ -10,4 +10,11 @@ import { Table } from 'src/app/models/table.model';
 export class TableComponent {
   @Input() table!: Table;
   @Input() route!: string;
+
+  vShowButton = false;
+
+  showButton() {
+    this.vShowButton= !this.vShowButton;
+    console.log(this.vShowButton)
+  }
 }

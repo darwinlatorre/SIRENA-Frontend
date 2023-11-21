@@ -18,13 +18,9 @@ import { BuildingViewComponent } from './pages/f-admin-views/building-view/build
 import { FacultiesViewComponent } from './pages/f-admin-views/faculties-view/faculties-view.component';
 import { CrudBuildingComponent } from './pages/f-cruds/crud-building/crud-building.component';
 import { CrudFacultiesComponent } from './pages/f-cruds/crud-faculties/crud-faculties.component';
-<<<<<<< HEAD
 import { StatisticsViewComponent } from './pages/f-admin-views/statistics-view/statistics-view.component';
-=======
-import { ProgramsViewComponent } from './pages/f-admin-views/programs-view/programs-view.component';
 import { CrudProgramsComponent } from './pages/f-cruds/crud-programs/crud-programs.component';
-
->>>>>>> origin
+import { ProgramsViewComponent } from './pages/f-admin-views/programs-view/programs-view.component';
 // ... importa los demás componentes de cruds
 
 const routes: Routes = [
