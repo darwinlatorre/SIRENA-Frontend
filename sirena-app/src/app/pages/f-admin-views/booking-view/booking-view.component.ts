@@ -17,7 +17,7 @@ export class BookingViewComponent {
 
   // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
   table_booking: Table = {
-    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador"],
+    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa"],
     li_content: []
   }; 
 
@@ -53,6 +53,7 @@ export class BookingViewComponent {
             booking.rsv_fecha_solicitud,
             booking.rsv_fecha_reserva_inicio,
             booking.rsv_usr.username,
+            booking.rsv_program_id.toString()
           ]);
         },
         error: (err) => {

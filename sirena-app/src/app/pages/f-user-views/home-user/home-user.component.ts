@@ -145,7 +145,6 @@ export class HomeUserComponent  {
       console.log(response);
       alert('Reserva creada exitosamente');
     } catch (e: any) {
-      // Asumiendo que e.error contiene el mensaje de error específico que quieres mostrar
       if (e && e.error && typeof e.error === 'string') {
         alert(e.error);
       } else {

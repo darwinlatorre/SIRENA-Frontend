@@ -8,7 +8,7 @@ export interface Booking{
     rsv_num_estudiantes: number,
     rsv_estado: string,
     rsv_detalles: string,
-    rsv_program_id:number | null,
+    rsv_program_id:number,
     rsv_faculty_id:number,
     rsv_incidencia_id: number | null,
     rsv_cls_id: number,
