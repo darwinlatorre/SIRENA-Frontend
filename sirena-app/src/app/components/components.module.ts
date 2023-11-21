@@ -6,6 +6,8 @@ import { NavSideBarComponent } from './nav-side-bar/nav-side-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { TableComponent } from './table/table.component';
 import { RouterModule } from '@angular/router';
+import { GraphComponent } from './graph/graph.component';
+import {NgApexchartsModule} from 'ng-apexcharts';
 
 
 
@@ -15,18 +17,21 @@ import { RouterModule } from '@angular/router';
     GraphicSectionComponent,
     NavSideBarComponent,
     NavBarComponent,
-    TableComponent
+    TableComponent,
+    GraphComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgApexchartsModule
   ],
   exports:[
     CardComponent,
     GraphicSectionComponent,
     NavSideBarComponent,
     NavBarComponent,
-    TableComponent
+    TableComponent,
+    GraphComponent
   ]
 })
 export class ComponentsModule { }
