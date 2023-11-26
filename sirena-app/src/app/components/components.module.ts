@@ -8,6 +8,7 @@ import { TableComponent } from './table/table.component';
 import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
+import { NavSideBarCoordComponent } from './nav-side-bar-coord/nav-side-bar-coord.component';
 
 
 
@@ -18,7 +19,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
     NavSideBarComponent,
     NavBarComponent,
     TableComponent,
-    GraphComponent
+    GraphComponent,
+    NavSideBarCoordComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import {NgApexchartsModule} from 'ng-apexcharts';
     NavSideBarComponent,
     NavBarComponent,
     TableComponent,
-    GraphComponent
+    GraphComponent,
+    NavSideBarCoordComponent
   ]
 })
 export class ComponentsModule { }
