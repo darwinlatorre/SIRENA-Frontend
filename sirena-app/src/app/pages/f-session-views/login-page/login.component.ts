@@ -51,8 +51,10 @@ export class LoginComponent {
             localStorage.setItem("id", userId);
             
             // Redirección basada en el rol
-            if (['ROLE_ADMIN', 'ROLE_COORDINADOR'].includes(role)) {
+            if (role === 'ROLE_ADMIN') {
               this.router.navigateByUrl('/admin/home');
+            } else if (role === 'ROLE_COORDINADOR') {
+              this.router.navigateByUrl('/coord/home');
             } else if (role === 'ROLE_DOCENTE') {
               this.router.navigateByUrl('/user/home');
             } else {

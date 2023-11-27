@@ -19,6 +19,10 @@ import { CrudBuildingComponent } from './f-cruds/crud-building/crud-building.com
 import { StatisticsViewComponent } from './f-admin-views/statistics-view/statistics-view.component';
 import { ProgramsViewComponent } from './f-admin-views/programs-view/programs-view.component';
 import { CrudProgramsComponent } from './f-cruds/crud-programs/crud-programs.component';
+import { FCoordViewComponent } from './f-coord-views/f-coord-view.component';
+import { StatisticsCoordViewComponent } from './f-coord-views/statistics-coord-view/statistics-coord-view.component';
+import { BookingCoordViewComponent } from './f-coord-views/booking-coord-view/booking-coord-view.component';
+import { CrudCoordReservationComponent } from './f-coord-views/crud-coord-reservation/crud-coord-reservation.component';
 
 
 
@@ -43,7 +47,11 @@ import { CrudProgramsComponent } from './f-cruds/crud-programs/crud-programs.com
     CrudFacultiesComponent,
     CrudBuildingComponent,
     StatisticsViewComponent,
-    ProgramsViewComponent
+    ProgramsViewComponent,
+    FCoordViewComponent,
+    StatisticsCoordViewComponent,
+    BookingCoordViewComponent,
+    CrudCoordReservationComponent
     
   ],
   imports: [

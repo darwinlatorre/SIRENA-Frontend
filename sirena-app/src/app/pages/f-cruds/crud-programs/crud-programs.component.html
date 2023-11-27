@@ -5,7 +5,7 @@
         <div class="bg-white rounded p-6">
           <div class="text-center mb-12">
             <div class="border-t border-gray-500 mt-4 mb-4"></div>
-            <span>Crear Edificio</span>
+            <span>Crear Programa</span>
           </div>
   
           <form (submit)="registerPrograms($event)">
@@ -15,7 +15,7 @@
         
             </div>
             <div class="mb-6">
-                <label for="nombreFacultad" class="block mb-2">Edificio:</label>
+                <label for="nombreFacultad" class="block mb-2">Facultad:</label>
                 <select class="form-control w-full border rounded p-2" id="nombreFacultad" required>
                     <option *ngFor='let type of facultiesType' [value]="type.name" [attr.data-id]="type.id">
                         {{ type.name }}

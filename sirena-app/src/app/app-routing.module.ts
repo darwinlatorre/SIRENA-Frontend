@@ -21,6 +21,11 @@ import { CrudFacultiesComponent } from './pages/f-cruds/crud-faculties/crud-facu
 import { StatisticsViewComponent } from './pages/f-admin-views/statistics-view/statistics-view.component';
 import { CrudProgramsComponent } from './pages/f-cruds/crud-programs/crud-programs.component';
 import { ProgramsViewComponent } from './pages/f-admin-views/programs-view/programs-view.component';
+import { FCoordViewComponent } from './pages/f-coord-views/f-coord-view.component';
+
+import { StatisticsCoordViewComponent } from './pages/f-coord-views/statistics-coord-view/statistics-coord-view.component';
+import { BookingCoordViewComponent } from './pages/f-coord-views/booking-coord-view/booking-coord-view.component';
+import { CrudCoordReservationComponent } from './pages/f-coord-views/crud-coord-reservation/crud-coord-reservation.component';
 // ... importa los demás componentes de cruds
 
 const routes: Routes = [
@@ -36,13 +41,15 @@ const routes: Routes = [
   {path: 'admin/building', component: BuildingViewComponent, canActivate: [RoleGuard], data: {roles: ['ROLE_ADMIN']}},
   {path: 'admin/faculties', component: FacultiesViewComponent, canActivate: [RoleGuard], data: {roles: ['ROLE_ADMIN']}},
   {path: 'admin/statistics', component: StatisticsViewComponent, canActivate: [RoleGuard], data: {roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR']}},
-
   {path: 'admin/building/create', component: CrudBuildingComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
   {path: 'admin/faculties/create', component: CrudFacultiesComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
-
   {path: 'admin/programs', component: ProgramsViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
   {path: 'admin/programs/create', component: CrudProgramsComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
 
+  {path: 'coord/home', component: FCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
+  {path: 'coord/booking', component: BookingCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
+  {path: 'coord/statistics', component: StatisticsCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
+  {path: 'coord/booking/create', component: CrudCoordReservationComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
   {path: '', component: LoginComponent}
   // ... añade las rutas para los componentes dentro de f-cruds
 ];

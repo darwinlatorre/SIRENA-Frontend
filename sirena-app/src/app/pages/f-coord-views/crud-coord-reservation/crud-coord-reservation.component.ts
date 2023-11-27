@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-crud-reservation',
-  templateUrl: './crud-reservation.component.html',
-  styleUrls: ['./crud-reservation.component.css']
+  selector: 'app-crud-coord-reservation',
+  templateUrl: './crud-coord-reservation.component.html',
+  styleUrls: ['./crud-coord-reservation.component.css']
 })
-export class CRUDReservationComponent implements OnInit{
+export class CrudCoordReservationComponent implements OnInit{
 
-
+  
   constructor(private http: HttpClient, private router: Router) {}
   
   private headers!: HttpHeaders; // Variable para los headers
@@ -136,7 +136,12 @@ export class CRUDReservationComponent implements OnInit{
     };
 
     console.log('JSON que se enviará:', JSON.stringify(classroomData, null, 2));
-
+    interface MyApiResponse {
+      status: number;
+      data?: any;  // Asumiendo que tu respuesta tiene algún dato
+      // Agrega aquí otras propiedades que esperas en tu respuesta
+    }
+    
     try {
       const response = await this.http.post('api/v1/bookings', classroomData, {
         headers: this.headers,
@@ -151,6 +156,10 @@ export class CRUDReservationComponent implements OnInit{
         console.log("Error general: " + JSON.stringify(e));
       }
     }
+    
+    
+    
+    
     
     
 

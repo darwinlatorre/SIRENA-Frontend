@@ -141,8 +141,11 @@ export class HomeUserComponent  {
     
 
     try {
-      const response = await this.http.post('api/v1/bookings', classroomData, { headers: this.headers }).toPromise();
-      console.log(response);
+      const response = await this.http.post('api/v1/bookings', classroomData, {
+        headers: this.headers,
+        responseType: 'text'  // Esperar una respuesta de texto
+      }).toPromise();
+    
       alert('Reserva creada exitosamente');
     } catch (e: any) {
       if (e && e.error && typeof e.error === 'string') {
