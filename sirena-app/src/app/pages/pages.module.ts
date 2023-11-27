@@ -23,6 +23,8 @@ import { FCoordViewComponent } from './f-coord-views/f-coord-view.component';
 import { StatisticsCoordViewComponent } from './f-coord-views/statistics-coord-view/statistics-coord-view.component';
 import { BookingCoordViewComponent } from './f-coord-views/booking-coord-view/booking-coord-view.component';
 import { CrudCoordReservationComponent } from './f-coord-views/crud-coord-reservation/crud-coord-reservation.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -56,7 +58,9 @@ import { CrudCoordReservationComponent } from './f-coord-views/crud-coord-reserv
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    NgApexchartsModule,
+    ReactiveFormsModule
   ],
   exports:[
     HomeAdminComponent,
