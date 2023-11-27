@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from './card/card.component';
@@ -9,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import { NavSideBarCoordComponent } from './nav-side-bar-coord/nav-side-bar-coord.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 
@@ -20,12 +22,14 @@ import { NavSideBarCoordComponent } from './nav-side-bar-coord/nav-side-bar-coor
     NavBarComponent,
     TableComponent,
     GraphComponent,
-    NavSideBarCoordComponent
+    NavSideBarCoordComponent,
+    StatisticsComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    ReactiveFormsModule
   ],
   exports:[
     CardComponent,
@@ -34,7 +38,8 @@ import { NavSideBarCoordComponent } from './nav-side-bar-coord/nav-side-bar-coor
     NavBarComponent,
     TableComponent,
     GraphComponent,
-    NavSideBarCoordComponent
+    NavSideBarCoordComponent,
+    StatisticsComponent
   ]
 })
 export class ComponentsModule { }

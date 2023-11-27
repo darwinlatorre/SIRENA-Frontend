@@ -19,6 +19,8 @@ import { CrudBuildingComponent } from './f-cruds/crud-building/crud-building.com
 import { StatisticsViewComponent } from './f-admin-views/statistics-view/statistics-view.component';
 import { ProgramsViewComponent } from './f-admin-views/programs-view/programs-view.component';
 import { CrudProgramsComponent } from './f-cruds/crud-programs/crud-programs.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -48,7 +50,9 @@ import { CrudProgramsComponent } from './f-cruds/crud-programs/crud-programs.com
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    NgApexchartsModule,
+    ReactiveFormsModule
   ],
   exports:[
     HomeAdminComponent,
