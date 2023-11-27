@@ -21,7 +21,7 @@ import { CrudFacultiesComponent } from './pages/f-cruds/crud-faculties/crud-facu
 import { StatisticsViewComponent } from './pages/f-admin-views/statistics-view/statistics-view.component';
 import { CrudProgramsComponent } from './pages/f-cruds/crud-programs/crud-programs.component';
 import { ProgramsViewComponent } from './pages/f-admin-views/programs-view/programs-view.component';
-import { FCoordViewComponent } from './pages/f-coord-views/f-coord-view.component';
+import { HomeCoordComponent} from './pages/f-coord-views/home-coord/home-coord.component';
 
 import { StatisticsCoordViewComponent } from './pages/f-coord-views/statistics-coord-view/statistics-coord-view.component';
 import { BookingCoordViewComponent } from './pages/f-coord-views/booking-coord-view/booking-coord-view.component';
@@ -46,7 +46,7 @@ const routes: Routes = [
   {path: 'admin/programs', component: ProgramsViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
   {path: 'admin/programs/create', component: CrudProgramsComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }},
 
-  {path: 'coord/home', component: FCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
+  {path: 'coord/home', component: HomeCoordComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
   {path: 'coord/booking', component: BookingCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
   {path: 'coord/statistics', component: StatisticsCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
   {path: 'coord/booking/create', component: CrudCoordReservationComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
