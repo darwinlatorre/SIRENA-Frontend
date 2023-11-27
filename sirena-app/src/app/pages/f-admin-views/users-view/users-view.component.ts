@@ -11,6 +11,8 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./users-view.component.css']
 })
 export class UsersViewComponent implements OnInit {
+  //Se crea para mostrar la side bar correcta
+  role_nav: string = 'postgraduates';
 
   //Se crea la ruta para especificar que tipo de tabla se debe mostrar
   route: string = "users_view";

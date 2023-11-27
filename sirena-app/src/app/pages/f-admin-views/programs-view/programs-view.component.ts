@@ -11,7 +11,8 @@ import { Table } from 'src/app/models/table.model';
   styleUrls: ['./programs-view.component.css']
 })
 export class ProgramsViewComponent {
-
+  
+  role_nav: string = 'postgraduates';
   route: string = "faculty_view";
   programs: Program[] = [];
 

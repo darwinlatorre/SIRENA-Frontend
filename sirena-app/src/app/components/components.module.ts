@@ -9,7 +9,6 @@ import { TableComponent } from './table/table.component';
 import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
-import { NavSideBarCoordComponent } from './nav-side-bar-coord/nav-side-bar-coord.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
 
@@ -22,7 +21,6 @@ import { StatisticsComponent } from './statistics/statistics.component';
     NavBarComponent,
     TableComponent,
     GraphComponent,
-    NavSideBarCoordComponent,
     StatisticsComponent
   ],
   imports: [
@@ -38,7 +36,6 @@ import { StatisticsComponent } from './statistics/statistics.component';
     NavBarComponent,
     TableComponent,
     GraphComponent,
-    NavSideBarCoordComponent,
     StatisticsComponent
   ]
 })

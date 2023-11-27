@@ -10,7 +10,8 @@ import { Table } from 'src/app/models/table.model';
   styleUrls: ['./faculties-view.component.css']
 })
 export class FacultiesViewComponent {
-
+  
+  role_nav: string = 'postgraduates';
   route: string = "faculty_view";
   faculties: Faculty[] = [];
 

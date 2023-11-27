@@ -14,6 +14,7 @@ export class BookingViewComponent {
   // Aqui va la ruta que de el acceso, este solo es un ejemplo
   route: string = "booking_view";
   bookings : Booking[] = [];
+  role_nav: string = 'postgraduates';
 
   // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
   table_booking: Table = {

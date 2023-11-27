@@ -11,6 +11,7 @@ import { Classroom } from 'src/app/models/classroom.model';
 })
 export class ClassroomViewComponent implements OnInit {
 
+  role_nav: string = 'postgraduates';
   route: string = "classroom_view";
   classrooms: Classroom[] = [];
 

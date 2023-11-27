@@ -5,8 +5,8 @@ import {
   ApexChart,
   ApexXAxis,
   ApexTitleSubtitle,
-  ChartType
-} from "ng-apexcharts";
+  ChartType,
+} from 'ng-apexcharts';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -17,37 +17,36 @@ export type ChartOptions = {
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.css'],
 })
 export class StatisticsComponent {
-  @ViewChild("chart") chart!: ChartComponent;
-  @Input() vType!:ChartType;
+  @ViewChild('chart') chart!: ChartComponent;
+  @Input() vType!: ChartType;
   @Input() vName!: string;
   @Input() vData!: number[];
   @Input() vText!: string;
-  @Input() vChart !: ApexChart;
+  @Input() vChart!: ApexChart;
   @Input() vCategories!: string[];
   public chartOptions!: Partial<ChartOptions>;
 
   ngOnInit(): void {
     this.chartOptions = {
-
       series: [
         {
           name: this.vName,
-          data: this.vData
-        }
+          data: this.vData,
+        },
       ],
       chart: {
         height: 350,
-        type: this.vType
+        type: this.vType,
       },
       title: {
-        text: this.vText
+        text: this.vText,
       },
       xaxis: {
-        categories: this.vCategories
-      }
+        categories: this.vCategories,
+      },
     };
   }
 }

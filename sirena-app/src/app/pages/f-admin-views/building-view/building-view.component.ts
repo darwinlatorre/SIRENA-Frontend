@@ -10,7 +10,8 @@ import { Table } from 'src/app/models/table.model';
   styleUrls: ['./building-view.component.css']
 })
 export class BuildingViewComponent {
-
+  
+  role_nav: string = 'postgraduates';
   route: string = "classroom_view";
   buildings: Building[] = [];
 
