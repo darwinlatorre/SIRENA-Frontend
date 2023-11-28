@@ -1,5 +1,6 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HomeAdminComponent } from './f-admin-views/home-admin/home-admin.component';
 import { HomeUserComponent } from './f-user-views/home-user/home-user.component';
 import { ComponentsModule } from '../components/components.module';
@@ -25,6 +26,8 @@ import { CrudCoordReservationComponent } from './f-coord-views/crud-coord-reserv
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeCoordComponent } from './f-coord-views/home-coord/home-coord.component';
+import { BookingTeacherViewComponent } from './f-user-views/booking-teacher-view/booking-teacher-view.component';
+import { CrudBookingTeacherComponent } from './f-user-views/crud-booking-teacher/crud-booking-teacher.component';
 
 
 
@@ -53,11 +56,14 @@ import { HomeCoordComponent } from './f-coord-views/home-coord/home-coord.compon
     StatisticsCoordViewComponent,
     BookingCoordViewComponent,
     CrudCoordReservationComponent,
-    HomeCoordComponent
+    HomeCoordComponent,
+    BookingTeacherViewComponent,
+    CrudBookingTeacherComponent
     
   ],
   imports: [
     CommonModule,
+    FormsModule, // Añade FormsModule aquí
     ComponentsModule,
     NgApexchartsModule,
     ReactiveFormsModule

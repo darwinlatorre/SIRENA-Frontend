@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders,HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-crud-coord-reservation',
-  templateUrl: './crud-coord-reservation.component.html',
-  styleUrls: ['./crud-coord-reservation.component.css']
+  selector: 'app-crud-booking-teacher',
+  templateUrl: './crud-booking-teacher.component.html',
+  styleUrls: ['./crud-booking-teacher.component.css']
 })
-export class CrudCoordReservationComponent implements OnInit{
+export class CrudBookingTeacherComponent {
+  
+  
 
-  
   constructor(private http: HttpClient, private router: Router) {}
+
+  role_nav: string = 'teacher';
   
-  role_nav: string = 'coordinator';
   private headers!: HttpHeaders; // Variable para los headers
   public classroom: any[] = [];
   public incidences: any[]=[];
@@ -137,12 +140,8 @@ export class CrudCoordReservationComponent implements OnInit{
     };
 
     console.log('JSON que se enviará:', JSON.stringify(classroomData, null, 2));
-    interface MyApiResponse {
-      status: number;
-      data?: any;  // Asumiendo que tu respuesta tiene algún dato
-      // Agrega aquí otras propiedades que esperas en tu respuesta
-    }
     
+
     try {
       const response = await this.http.post('api/v1/bookings', classroomData, {
         headers: this.headers,
@@ -150,7 +149,7 @@ export class CrudCoordReservationComponent implements OnInit{
       }).toPromise();
     
       alert('Reserva creada exitosamente');
-      this.router.navigate(['/coord/home']);
+      this.router.navigate(['/user/home']);
     } catch (e: any) {
       if (e && e.error && typeof e.error === 'string') {
         alert(e.error);
@@ -158,19 +157,6 @@ export class CrudCoordReservationComponent implements OnInit{
         console.log("Error general: " + JSON.stringify(e));
       }
     }
-    
-    
-    
-    
-    
-    
-
-
-    
   }
-
-
-
-
 
 }

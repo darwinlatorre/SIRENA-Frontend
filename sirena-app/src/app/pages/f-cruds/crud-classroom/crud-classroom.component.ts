@@ -12,6 +12,8 @@ export class CRUDClassroomComponent implements OnInit {
   
   constructor(private http: HttpClient, private router: Router) {}
 
+  role_nav: string = 'postgraduates';
+
   private headers!: HttpHeaders; // Variable para los headers
   public classroomTypes: any[] = [];
   public buildingTypes: any[]=[];

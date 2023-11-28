@@ -1,7 +1,8 @@
-import { HttpHeaders,HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router'; // Importa el Router
+import { Booking } from 'src/app/models/booking.model';
+import { Table } from 'src/app/models/table.model';
 
 @Component({
   selector: 'app-home-user',
@@ -9,172 +10,207 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./home-user.component.css']
 })
 export class HomeUserComponent  {
-
+  role_nav: string = 'teacher';
+    // Aqui va la ruta que de el acceso, este solo es un ejemplo
+    route: string = "booking_view";
+    bookings : Booking[] = [];
+    private headers!: HttpHeaders;
   
-
-  constructor(private http: HttpClient, private router: Router) {}
+    // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
+    table_booking: Table = {
+      title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa"],
+      li_content: []
+    }; 
   
-  private headers!: HttpHeaders; // Variable para los headers
-  public classroom: any[] = [];
-  public incidences: any[]=[];
-  public faculty: any[]=[];
-  public programs: any[]=[];
+    // Inyecta el Router en el constructor
+    constructor(private router: Router, private http:HttpClient) { }
+  
+    ngOnInit(){
+      this.fetchBookings();
+    }
+  
+    fetchBookings() {
+      const token = localStorage.getItem('jwt');
+      if (!token) {
+        console.error('No token found!');
+        return;
+      }
+  
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+  
+      this.http.get<Booking[]>('/api/v1/bookings', { headers: headers })
+        .subscribe({
+          next: (data) => {
+            console.log('Bookings data received:', data);
+            // Asigna los datos de las aulas a la propiedad `li_content` del modelo
+            this.bookings = data;
+            this.table_booking.li_content = this.bookings.map(booking => [
+              booking.rsv_id.toString(),
+              booking.rsv_estado,
+              booking.rsv_cls_id.toString(),
+              booking.rsv_faculty_id.toString(),
+              booking.rsv_fecha_solicitud,
+              booking.rsv_fecha_reserva_inicio,
+              booking.rsv_usr.username,
+              booking.rsv_program_id.toString()
+            ]);
+          },
+          error: (err) => {
+            console.error('Error fetching classrooms:', err);
+          }
+        });
+    }
   
   
-  
-
-
-
-  ngOnInit(): void {
-    this.initializeHeaders();
-    this.loadClassroom();
-    this.loadIncidence();
-    this.loadFaculty();
-    this.loadPrograms();
-  }
-
-
-  private initializeHeaders(): void {
-    const token = localStorage.getItem('jwt');
-    if (!token) {
-      console.error('No token found!');
-      return;
+    // Método para manejar la navegación
+    navigateToCreateBooking() {
+      this.router.navigate(['/coord/booking/create']);
     }
-
-    this.headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  }
-  private async loadPrograms() {
-    try {
-      const response4 = await this.http.get('api/v1/programs', { headers: this.headers }).toPromise();
-      this.programs = response4 as any[];
-      console.log(JSON.stringify(response4) + " programas");
-    } catch (error) {
-      console.error('Hubo un error al cargar los programas', error);
+    recibirDatos(datos: any) {
+      console.log('Datos recibidos:', datos);
+      this.createIncidence(datos);
     }
-
-  }
-  private async loadClassroom() {
-    try {
-      const response3 = await this.http.get('api/v1/classroom', { headers: this.headers }).toPromise();
-      this.classroom = response3 as any[];
-      console.log(JSON.stringify(response3) + "Salones");
-    } catch (error) {
-      console.error('Hubo un error al cargar los tipos de salón', error);
-    }
-
-  }
-  private async loadIncidence() {
-    try {
-      const response2 = await this.http.get('api/v1/incidence', { headers: this.headers }).toPromise();
-      this.incidences = response2 as any[];
-      console.log(JSON.stringify(response2) + "Incidencias");
-    } catch (error) {
-      console.error('Hubo un error al cargar las incidencias', error);
-    }
-
-  }
-  private async loadFaculty() {
-    try {
-      const response = await this.http.get('api/v1/faculty', { headers: this.headers }).toPromise();
-      this.faculty = response as any[];
-      console.log(JSON.stringify(response) + " Facultad");
-    } catch (error) {
-      console.error('Hubo un error al cargar las facultades', error);
-    }
-
-  }
-
-  async registerReservation(event: any){
-
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-
-    const parteFechaReservaInicio = event.target.querySelector('#fechaReservaInicio').value;
-    const parteHoraReservaInicio = event.target.querySelector('#horaReservaInicio').value;
-    const rsv_fecha_reserva_inicio = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaInicio + ':00.000Z').toISOString();
-    console.log(rsv_fecha_reserva_inicio + " fecha de Inicio de la reserva");
-
-    const parteHoraReservaFin = event.target.querySelector('#horaReservaFin').value;
-    const rsv_hora_fin = new Date(parteFechaReservaInicio + 'T' + parteHoraReservaFin + ':00.000Z').toISOString();
-    console.log(rsv_hora_fin + " fecha de fin de la reserva");
-
-
-    const rsv_num_estudiantes = event.target.querySelector('#numEstudiantes').value;
-    console.log(rsv_num_estudiantes + " número de estudiantes");
-
-    const rsv_estado = "Pendiente";
-
-    const rsv_detalles = event.target.querySelector('#detalles').value;
-    console.log(rsv_detalles + " detalles de la reserva");
-
-
-    const classroomTypeSelect = form.querySelector('#Salon') as HTMLSelectElement;
-    const rsv_cls_id = classroomTypeSelect.selectedOptions[0].getAttribute('data-id');
-    console.log(rsv_cls_id + " id del salon");
-
-    const facultyTypeSelect = form.querySelector('#facultad') as HTMLSelectElement;
-    const rsv_faculty_id = facultyTypeSelect.selectedOptions[0].getAttribute('data-id');
-    console.log(rsv_faculty_id + " facultad");
-
-    const rsv_usr_id = localStorage.getItem("id");
-    console.log(rsv_usr_id);
-
-    const programsTypeSelect = form.querySelector('#programa') as HTMLSelectElement;
-    const rsv_program_id = programsTypeSelect.selectedOptions[0].getAttribute('data-id');
-    console.log(rsv_program_id);
-
-    const classroomData = {
-      rsv_fecha_reserva_inicio,
-      rsv_hora_fin,
-      rsv_num_estudiantes,
-      rsv_estado,
-      rsv_detalles,
-      rsv_cls_id,
-      rsv_usr_id,
-      rsv_faculty_id,
-      rsv_program_id
-    };
-
-    console.log('JSON que se enviará:', JSON.stringify(classroomData, null, 2));
+    async createIncidence(datos:any){
+      try {
+        const ins_name = datos.texto;
+        const ins_teacher_name = localStorage.getItem("name");
+        const ins_type = datos.opcion;
+        const incidenceData = {
+          ins_name,
+          ins_teacher_name,
+          ins_type
+        };
     
-
-    try {
-      const response = await this.http.post('api/v1/bookings', classroomData, {
-        headers: this.headers,
-        responseType: 'text'  // Esperar una respuesta de texto
-      }).toPromise();
+        // Obteniendo el token
+        const token = localStorage.getItem('jwt');
+        if (!token) {
+            console.error('No token found!');
+            return;
+        }
     
-      alert('Reserva creada exitosamente');
-    } catch (e: any) {
-      if (e && e.error && typeof e.error === 'string') {
-        alert(e.error);
-      } else {
-        console.log("Error general: " + JSON.stringify(e));
+        // Configuración de los headers
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+    
+        // Realizar una solicitud POST para crear la incidencia y obtener la respuesta
+        const response:any = await this.http.post(`/api/v1/incidence`, incidenceData, { headers: headers }).toPromise();
+    
+        // Capturar el ID de la incidencia creada
+        const incidenceId = response.ins_id;
+        console.log('Incidencia creada con ID:', incidenceId);
+        await this.updateBookingWithIncidence(datos.bookingId, incidenceId);
+    
+        // Aquí puedes usar incidenceId para lo que necesites
+    
+        this.fetchBookings();
+      } catch (e: any) {
+        // Manejar los errores de la solicitud
+        if (e && e.error && typeof e.error === 'string') {
+            alert(e.error);
+        } else {
+            console.error("Error general: " + JSON.stringify(e));
+        }
       }
     }
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-    
+    async updateBookingWithIncidence(bookingId:any, incidenceId:any) {
+      try {
+          // Obteniendo el token
+          const token = localStorage.getItem('jwt');
+          if (!token) {
+              console.error('No token found!');
+              return;
+          }
+  
+          // Configuración de los headers
+          const headers = new HttpHeaders({
+              'Authorization': `Bearer ${token}`
+          });
+  
+          const booking:any = await this.http.get<Booking>(`/api/v1/bookings/${bookingId}`, { headers: headers }).toPromise();
+          if (booking.rsv_incidencia) {
+            booking.rsv_incidencia_id = booking.rsv_incidencia;
+            delete booking.rsv_incidencia;
+        }
+  
+        delete booking.rsv_id;
+        booking.rsv_incidencia_id = incidenceId;
+  
+          
+          if (booking.rsv_usr && booking.rsv_usr.id) {
+            booking.rsv_usr_id = booking.rsv_usr.id;
+        }
+        delete booking.rsv_usr;
+        delete booking.rsv_id;
+  
+          // Preparar el objeto con el ID de la incidencia
+  
+          console.log('Booking to be updated:', booking);
+  
+          // Realizar una solicitud PUT para actualizar la reserva
+          await this.http.put(`/api/v1/bookings/${bookingId}`, booking, { headers: headers }).toPromise();
+          console.log('Reserva actualizada con la incidencia ID:', incidenceId);
+  
+          // Aquí puedes agregar cualquier lógica adicional después de la actualización
+      } catch (e: any) {
+          // Manejar los errores de la solicitud
+          if (e && e.error && typeof e.error === 'string') {
+              alert(e.error);
+          } else {
+              console.error("Error general: " + JSON.stringify(e));
+          }
+      }
   }
-
-
-
-  salir(): void {
-    localStorage.clear(); // Limpia el localStorage completamente
-    this.router.navigate(['/login']); // Redirige al usuario a la ruta de login
+  
+    
+  
+    onReservationAction(event:any) {
+      console.log("Reservation ID:", event.id, "Action:", event.action);
+      this.updateBooking(event);
   }
-
-
+  
+  async updateBooking(event: any) {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+        console.error('No token found!');
+        return;
+    }
+  
+    const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+    });
+  
+    try {
+        // Obtener la reserva
+        const booking:any = await this.http.get<Booking>(`/api/v1/bookings/${event.id}`, { headers: headers }).toPromise();
+  
+        // Modificar el estado de la reserva según la acción
+        booking.rsv_estado = event.action === 'accept' ? 'Aceptada' : 'Rechazada';
+  
+        // Ajustar el campo rsv_usr_id y eliminar rsv_usr
+        if (booking.rsv_usr && booking.rsv_usr.id) {
+            booking.rsv_usr_id = booking.rsv_usr.id;
+        }
+        delete booking.rsv_usr;
+        delete booking.rsv_id;
+  
+  
+        console.log('Booking to be updated:', booking);
+        // Realizar una solicitud PUT para actualizar la reserva
+        await this.http.put(`/api/v1/bookings/${event.id}`, booking, { headers: headers, responseType: 'text' }).toPromise();
+        alert("reserva modificada a:" + booking.rsv_estado)
+        console.log('Booking updated successfully');
+        this.fetchBookings();
+        // Puedes añadir aquí más lógica después de la actualización exitosa
+    } catch (e: any) {
+        // Manejar los errores de la solicitud
+        if (e && e.error && typeof e.error === 'string') {
+            alert(e.error);
+        } else {
+            console.error("Error general: " + JSON.stringify(e));
+        }
+    }
+  }
 }

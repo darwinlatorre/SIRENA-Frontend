@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
+
 
 
 
@@ -25,6 +27,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
   ],
   imports: [
     CommonModule,
+    FormsModule, 
     RouterModule,
     NgApexchartsModule,
     ReactiveFormsModule
