@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./crud-building.component.css']
 })
 export class CrudBuildingComponent {
+  role_nav: string = 'postgraduates';
   constructor(private http: HttpClient, private router: Router) {}
 
   async registerBuilding(event: any) {

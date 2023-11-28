@@ -10,8 +10,6 @@ import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
-import {ShareSelectItemService} from '../services/shareSelectItem/share-select-item.service'
 
 
 
@@ -28,6 +26,7 @@ import {ShareSelectItemService} from '../services/shareSelectItem/share-select-i
   ],
   imports: [
     CommonModule,
+    FormsModule, 
     RouterModule,
     NgApexchartsModule,
     ReactiveFormsModule

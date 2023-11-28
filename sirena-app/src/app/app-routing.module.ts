@@ -26,6 +26,8 @@ import { HomeCoordComponent} from './pages/f-coord-views/home-coord/home-coord.c
 import { StatisticsCoordViewComponent } from './pages/f-coord-views/statistics-coord-view/statistics-coord-view.component';
 import { BookingCoordViewComponent } from './pages/f-coord-views/booking-coord-view/booking-coord-view.component';
 import { CrudCoordReservationComponent } from './pages/f-coord-views/crud-coord-reservation/crud-coord-reservation.component';
+import { BookingTeacherViewComponent } from './pages/f-user-views/booking-teacher-view/booking-teacher-view.component';
+import { CrudBookingTeacherComponent } from './pages/f-user-views/crud-booking-teacher/crud-booking-teacher.component';
 // ... importa los demás componentes de cruds
 
 const routes: Routes = [
@@ -34,7 +36,6 @@ const routes: Routes = [
   { path: 'admin/home', component: HomeAdminComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] } },
   { path: 'admin/users', component: UsersViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] } },
   { path: 'login', component: LoginComponent},
-  { path: 'user/home', component: HomeUserComponent },
   {path: 'admin/users/create', component: CRUDUsersComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] }},
   {path: 'admin/classroom/create', component: CRUDClassroomComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] }},
   {path: 'admin/booking/create', component: CRUDReservationComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_COORDINADOR'] }},
@@ -50,6 +51,11 @@ const routes: Routes = [
   {path: 'coord/booking', component: BookingCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
   {path: 'coord/statistics', component: StatisticsCoordViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
   {path: 'coord/booking/create', component: CrudCoordReservationComponent, canActivate: [RoleGuard], data: {roles:['ROLE_COORDINADOR']}},
+
+
+  { path: 'user/home', component: HomeUserComponent },
+  {path: 'user/booking', component: BookingTeacherViewComponent, canActivate: [RoleGuard], data: {roles:['ROLE_DOCENTE']}},
+  {path: 'user/booking/create', component: CrudBookingTeacherComponent, canActivate: [RoleGuard], data: {roles:['ROLE_DOCENTE']}},
   {path: '', component: LoginComponent}
   // ... añade las rutas para los componentes dentro de f-cruds
 ];

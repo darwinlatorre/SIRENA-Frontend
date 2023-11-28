@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./statistics-coord-view.component.css']
 })
 export class StatisticsCoordViewComponent {
+  role_nav: string = 'coordinator';
 
 }

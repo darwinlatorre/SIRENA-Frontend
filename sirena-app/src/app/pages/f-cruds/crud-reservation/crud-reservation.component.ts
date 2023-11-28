@@ -17,7 +17,7 @@ export class CRUDReservationComponent implements OnInit{
   public incidences: any[]=[];
   public faculty: any[]=[];
   public programs: any[]=[];
-  
+  role_nav: string = 'postgraduates';  
   
   
 

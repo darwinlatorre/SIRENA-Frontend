@@ -6,20 +6,19 @@ import { Table } from 'src/app/models/table.model';
 
 
 @Component({
-  selector: 'app-booking-coord-view',
-  templateUrl: './booking-coord-view.component.html',
-  styleUrls: ['./booking-coord-view.component.css']
+  selector: 'app-booking-teacher-view',
+  templateUrl: './booking-teacher-view.component.html',
+  styleUrls: ['./booking-teacher-view.component.css']
 })
-export class BookingCoordViewComponent {
-  // Aqui va la ruta que de el acceso, este solo es un ejemplo
-  role_nav: string = 'coordinator';
+export class BookingTeacherViewComponent {
+  role_nav: string = 'teacher';
   route: string = "booking_view";
   bookings : Booking[] = [];
   private headers!: HttpHeaders;
 
   // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
   table_booking: Table = {
-    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa","/","/"],
+    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa","/"],
     li_content: []
   }; 
 
@@ -31,7 +30,9 @@ export class BookingCoordViewComponent {
   }
 
   fetchBookings() {
-    const token = localStorage.getItem('jwt');
+    const rsv_usr_id = localStorage.getItem("id");
+    const url = `/api/v1/bookings/user/${rsv_usr_id}`;
+    const token = localStorage.getItem('jwt'); // Suponiendo que se use autenticación JWT
     if (!token) {
       console.error('No token found!');
       return;
@@ -41,7 +42,7 @@ export class BookingCoordViewComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<Booking[]>('/api/v1/bookings', { headers: headers })
+    this.http.get<Booking[]>(url, { headers: headers })
       .subscribe({
         next: (data) => {
           console.log('Bookings data received:', data);
@@ -214,6 +215,4 @@ async updateBooking(event: any) {
       }
   }
 }
-  
-
 }
