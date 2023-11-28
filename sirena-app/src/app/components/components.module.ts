@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import {ShareSelectItemService} from '../services/shareSelectItem/share-select-item.service'
 
 
 
@@ -21,7 +23,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     NavBarComponent,
     TableComponent,
     GraphComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     NavBarComponent,
     TableComponent,
     GraphComponent,
-    StatisticsComponent
-  ]
+    StatisticsComponent,
+    DropdownComponent
+  ],
+  providers: [ShareSelectItemService]
 })
 export class ComponentsModule { }
