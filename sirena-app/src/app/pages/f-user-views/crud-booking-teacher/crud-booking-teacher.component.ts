@@ -149,7 +149,7 @@ export class CrudBookingTeacherComponent {
       }).toPromise();
     
       alert('Reserva creada exitosamente');
-      this.router.navigate(['/user/home']);
+      this.router.navigate(['/user/booking']);
     } catch (e: any) {
       if (e && e.error && typeof e.error === 'string') {
         alert(e.error);
