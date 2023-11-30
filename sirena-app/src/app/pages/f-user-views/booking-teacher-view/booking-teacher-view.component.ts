@@ -68,7 +68,7 @@ export class BookingTeacherViewComponent {
 
   // Método para manejar la navegación
   navigateToCreateBooking() {
-    this.router.navigate(['/coord/booking/create']);
+    this.router.navigate(['/user/booking/create']);
   }
   recibirDatos(datos: any) {
     console.log('Datos recibidos:', datos);
