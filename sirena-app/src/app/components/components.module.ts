@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from './card/card.component';
@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { GraphComponent } from './graph/graph.component';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { ShareSelectItemService } from '../services/shareSelectItem/share-select-item.service';
 
 
 

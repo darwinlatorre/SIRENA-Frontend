@@ -39,6 +39,7 @@ export class StatisticsComponent {
       ],
       chart: {
         height: 350,
+        
         type: this.vType,
       },
       title: {
