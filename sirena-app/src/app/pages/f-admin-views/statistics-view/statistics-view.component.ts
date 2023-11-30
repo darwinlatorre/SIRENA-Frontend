@@ -5,8 +5,10 @@ import { Component } from '@angular/core';
 import { ChartOptions } from 'src/app/components/statistics/statistics.component';
 import { delay, switchMap, timeout } from 'rxjs';
 import { Statistics } from 'src/app/models/statistics.model';
-
-type tTuple = [number,string,number];
+interface Almacenamiento {
+  entity_ids: number[];
+  cantidad_elementos: number;
+}
 @Component({
   selector: 'app-statistics-view',
   templateUrl: './statistics-view.component.html',
@@ -18,25 +20,27 @@ export class StatisticsViewComponent {
     private http: HttpClient,
     private ShareSelectItemService: ShareSelectItemService
   ) {}
+  
 
   //vars
-  data_tuple : tTuple[] = [];
+
   ent_ids: string[] = [];
   role_nav: string = 'postgraduates';
   option_statistic!: string;
   booking_count: number[] = [];
-  vBool: boolean = false;
+  vBool: boolean = true;
+  option_selected: string = ''
   //Inputs
-  categories: string[] = [];
-  data_graph: number[] = [];
+  categories: string[] = ["ELECTRONICA", "SISTEMAS"];
+  data_graph: number[] = [10, 41];
 
   ngOnInit(): void {
-  this.getDataSelectedItem();
+    this.fetchStatistics();
   }
 
+  fetchStatistics() {
+    const token = localStorage.getItem('jwt');
 
-  getDataSelectedItem() {
-    const token = localStorage.getItem('jwt'); // Suponiendo que se use autenticación JWT
     if (!token) {
       console.error('No token found!');
       return;
@@ -46,84 +50,29 @@ export class StatisticsViewComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.ShareSelectItemService.elementSelected$.pipe(
-      switchMap((element) => {
-        if (element) {
-          this.processSelectedItem(element);
-          return this.http.get<Statistics[]>(`/api/v1/statistics/${this.option_statistic}`,{ headers: headers });
-        }
-        // Si element es nulo, no realizar la solicitud HTTP
-        return [];
-      })
-    ).subscribe({
-      next: (data) => {
-        this.categories = [];
-        this.data_graph = [];
-        console.log('Statistics data received:', data);
-        this.ent_ids = data.map((obj) => obj.entity_id);
-        console.log("ents",this.ent_ids);
-        this.booking_count = data.map((obj) => obj.bokings_ids.length);
-        console.log("books",this.booking_count);
-        for(let x = 0; x<this.ent_ids.length; x++){
-          this.fetchOption(this.option_statistic,this.ent_ids[x]);
-        }
-
-      },
-      error: (err) => {
-        console.error('Error al obtener las estadisticas', err);
-      }
-    });
-  }
-  processSelectedItem(element: string) {
-    switch (element) {
-      case 'Facultad':
-        this.option_statistic = 'faculty';
-        break;
-      case 'Edificio':
-        this.option_statistic = 'building';
-        break;
-      case 'Programa':
-        this.option_statistic = 'programs';
-        break;
-      case 'Salon':
-        this.option_statistic = 'classroom';
-        break;
-    }
-  }
-  fetchOption(option_selected: string, id_program:string) {
-    const token = localStorage.getItem('jwt'); // Suponiendo que se use autenticación JWT
-    if (!token) {
-      console.error('No token found!');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get<any>(`/api/v1/${option_selected}/${id_program}`, { headers: headers })
-      .subscribe ({
+    this.http.get<any>('/api/v1/statistics/classroom', { headers: headers })
+      .subscribe({
         next: (data) => {
-          console.log('data received:', data);
-          for(let x = 1; x <=this.booking_count.length; x++){
-            if(x== data.id){
-              this.data_tuple = [data.id, data.name,this.booking_count[x-1]];
-              console.log(this.data_tuple)
-            }
-            
+          // Verifica que la respuesta tenga la estructura esperada
+          if (Array.isArray(data)) {
+            // Almacena los entity_ids y la cantidad de elementos para cada objeto en la respuesta
+            const resultados = data.map((item) => {
+              return {
+                entity_ids: [item.entity_id],
+                cantidad_elementos: item.bokings_ids ? item.bokings_ids.length : 0
+              };
+            });
+
+            console.log(resultados);
+            // Aquí puedes hacer más cosas con los resultados si es necesario
+          } else {
+            console.error('Invalid response format:', data);
           }
-          this.categories.push(this.data_tuple[1].toString());
-          if (typeof this.data_tuple[2] === 'number') {
-            this.data_graph.push(this.data_tuple[2]);
-          }
-          this.vBool = true;
         },
         error: (err) => {
           console.error('Error fetching classrooms:', err);
+          // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
         },
-        complete: () => {
-          this.vBool = true;
-        }
       });
   }
 }
