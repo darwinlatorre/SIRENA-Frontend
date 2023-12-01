@@ -18,7 +18,7 @@ export class BookingTeacherViewComponent {
 
   // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
   table_booking: Table = {
-    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa","/"],
+    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa"],
     li_content: []
   }; 
 

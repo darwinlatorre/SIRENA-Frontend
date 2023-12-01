@@ -99,7 +99,7 @@
           </div>
           
   <!-- Botón para mostrar/cerrar el desplegable -->
-  <div *ngIf="row[1].trim() === 'Finalizada' && !incidenciaEnviada[i]" class="flex-1 flex justify-center ">
+  <div *ngIf="row[1].trim() === 'Aceptada' && !incidenciaEnviada[i] && userRole !== 'postgraduates'" class="flex-1 flex justify-center">
     <button (click)="toggleDesplegable(i)" class="bg-white shadow-md rounded border-1 w-[40px] h-[20px] font-bold mt-1 mb-1">
       {{ desplegableAbierto[i] ? 'Cerrar' : 'Inc' }}
     </button>
