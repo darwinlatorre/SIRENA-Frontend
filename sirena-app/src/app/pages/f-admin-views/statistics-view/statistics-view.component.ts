@@ -23,16 +23,16 @@ export class StatisticsViewComponent {
   
 
   //vars
-
-  ent_ids: string[] = [];
+  
+  ent_ids!: number;
   role_nav: string = 'postgraduates';
   option_statistic!: string;
   booking_count: number[] = [];
   vBool: boolean = true;
   option_selected: string = ''
   //Inputs
-  categories: string[] = ["ELECTRONICA", "SISTEMAS"];
-  data_graph: number[] = [10, 41];
+  categories: string[] = [];
+  data_graph: number[] = [];
 
   ngOnInit(): void {
     this.fetchStatistics();
@@ -50,20 +50,17 @@ export class StatisticsViewComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<any>('/api/v1/statistics/classroom', { headers: headers })
+    this.http.get<Statistics>('/api/v1/statistics/classroom', { headers: headers })
       .subscribe({
         next: (data) => {
           // Verifica que la respuesta tenga la estructura esperada
           if (Array.isArray(data)) {
             // Almacena los entity_ids y la cantidad de elementos para cada objeto en la respuesta
-            const resultados = data.map((item) => {
-              return {
-                entity_ids: [item.entity_id],
-                cantidad_elementos: item.bokings_ids ? item.bokings_ids.length : 0
-              };
+            data.map((item) => {
+              this.data_graph.push(item.bokings_ids ? item.bokings_ids.length : 0);
+              this.categories.push(item.entity_id);
+              console.log("LONGITUD",this.data_graph,"IDS",this.categories);
             });
-
-            console.log(resultados);
             // Aquí puedes hacer más cosas con los resultados si es necesario
           } else {
             console.error('Invalid response format:', data);
