@@ -11,11 +11,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CrudBookingTeacherComponent {
   
   
-
   constructor(private http: HttpClient, private router: Router) {}
-
-  role_nav: string = 'teacher';
   
+  role_nav: string = 'teacher';
   private headers!: HttpHeaders; // Variable para los headers
   public classroom: any[] = [];
   public incidences: any[]=[];
@@ -23,18 +21,12 @@ export class CrudBookingTeacherComponent {
   public programs: any[]=[];
   
   
-  
-
-
-
   ngOnInit(): void {
     this.initializeHeaders();
     this.loadClassroom();
     this.loadIncidence();
     this.loadFaculty();
-    this.loadPrograms();
   }
-
 
   private initializeHeaders(): void {
     const token = localStorage.getItem('jwt');
@@ -47,16 +39,28 @@ export class CrudBookingTeacherComponent {
       'Authorization': `Bearer ${token}`
     });
   }
-  private async loadPrograms() {
+  private async loadPrograms(facultyId: number) {
     try {
-      const response4 = await this.http.get('api/v1/programs', { headers: this.headers }).toPromise();
-      this.programs = response4 as any[];
-      console.log(JSON.stringify(response4) + " programas");
+        const response4 = await this.http.get(`api/v1/statistics/programs/${facultyId}`, { headers: this.headers }).toPromise();
+        this.programs = response4 as any[];
+        console.log(JSON.stringify(response4) + " programas para la facultad con ID " + facultyId);
     } catch (error) {
-      console.error('Hubo un error al cargar los programas', error);
+        console.error('Hubo un error al cargar los programas para esta facultad', error);
     }
+}
 
-  }
+async onFacultyChange(event: any) {
+    const facultyName = event.target.value;
+    const facultyId = event.target.options[event.target.selectedIndex].getAttribute('data-id');
+  
+    try {
+        await this.loadPrograms(parseInt(facultyId, 10));
+        console.log('Facultad seleccionada:', facultyName);
+    } catch (error) {
+        console.error('Hubo un error al cargar los programas para esta facultad', error);
+    }
+}
+
   private async loadClassroom() {
     try {
       const response3 = await this.http.get('api/v1/classroom', { headers: this.headers }).toPromise();
@@ -85,7 +89,7 @@ export class CrudBookingTeacherComponent {
     } catch (error) {
       console.error('Hubo un error al cargar las facultades', error);
     }
-
+    
   }
 
   async registerReservation(event: any){
@@ -140,8 +144,12 @@ export class CrudBookingTeacherComponent {
     };
 
     console.log('JSON que se enviará:', JSON.stringify(classroomData, null, 2));
+    interface MyApiResponse {
+      status: number;
+      data?: any;  // Asumiendo que tu respuesta tiene algún dato
+      // Agrega aquí otras propiedades que esperas en tu respuesta
+    }
     
-
     try {
       const response = await this.http.post('api/v1/bookings', classroomData, {
         headers: this.headers,
@@ -157,6 +165,18 @@ export class CrudBookingTeacherComponent {
         console.log("Error general: " + JSON.stringify(e));
       }
     }
+    
+    
+    
+    
+    
+    
+
+
+    
   }
+
+
+
 
 }

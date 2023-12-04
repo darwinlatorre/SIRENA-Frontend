@@ -100,23 +100,34 @@
         
         <!-- Botón para abrir/cerrar el modal -->
         <div class="flex-1 flex justify-center">
-          <button *ngIf="row[1].trim() === 'Aceptada' && !incidenciaEnviada[i] && userRole !== 'postgraduates'"
+          <button *ngIf="row[1].trim() === 'Finalizada' && !incidenciaEnviada[i] && userRole !== 'postgraduates'"
                   (click)="toggleModal(i)" class="bg-white shadow-md rounded border-1 w-[100px] h-[20px] font-bold mt-1 mb-1">
             {{ 'Incidencia' }}
           </button>
         </div>
 
         <app-modal class="flex" *ngIf="modalAbierto[i]" (closeModalEvent)="closeModal()">
-          <select [(ngModel)]="opcionSeleccionada[i]" class="bg-white shadow-md rounded border-1 w-[110px] h-[50px] font-bold mt-1 mb-1 mr-6">
-            <option *ngFor='let type of tipoIncidencia' [value]="type.ins_type_name" [attr.data-id]="type.ins_type_id">
-              {{ type.ins_type_name }}
-            </option>
-          </select>
-          <input type="text" [(ngModel)]="textoIngresado[i]" class="bg-white shadow-md rounded border-1 w-[110px] h-[50px] font-bold mt-1 mb-1 mr-6" placeholder="Escribe aquí">
-          <button (click)="enviarDatos(i)" class="bg-white shadow-md rounded border-1 w-[110px] h-[50px] font-bold mt-1 mb-1 mr-6" [disabled]="!camposLlenos(i)">
-            Enviar
-          </button>
+          <div class="p-6">
+            <div class="mb-4">
+              <label for="tipoIncidencia" class="block font-bold mb-1">Tipo de Incidencia</label>
+              <select [(ngModel)]="opcionSeleccionada[i]" id="tipoIncidencia" class="border-2 rounded px-4 py-2 w-full">
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option *ngFor='let type of tipoIncidencia' [value]="type.ins_type_name" [attr.data-id]="type.ins_type_id">
+                  {{ type.ins_type_name }}
+                </option>
+              </select>
+              
+            </div>
+            <div class="mb-4">
+              <label for="textoIngresado" class="block font-bold mb-1">Anotaciones</label>
+              <input type="text" [(ngModel)]="textoIngresado[i]" id="textoIngresado" class="border-2 rounded px-4 py-2 w-full" placeholder="Escribe aquí">
+            </div>
+            <button (click)="enviarDatos(i)" class="bg-blue-500 text-white font-bold py-2 px-4 rounded" [disabled]="!camposLlenos(i)">
+              Enviar
+            </button>
+          </div>
         </app-modal>
+        
         
       </li>
     </ul>
