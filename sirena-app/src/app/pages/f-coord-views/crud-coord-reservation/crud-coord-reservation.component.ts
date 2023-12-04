@@ -20,18 +20,12 @@ export class CrudCoordReservationComponent implements OnInit{
   public programs: any[]=[];
   
   
-  
-
-
-
   ngOnInit(): void {
     this.initializeHeaders();
     this.loadClassroom();
     this.loadIncidence();
     this.loadFaculty();
-    this.loadPrograms();
   }
-
 
   private initializeHeaders(): void {
     const token = localStorage.getItem('jwt');
@@ -44,16 +38,28 @@ export class CrudCoordReservationComponent implements OnInit{
       'Authorization': `Bearer ${token}`
     });
   }
-  private async loadPrograms() {
+  private async loadPrograms(facultyId: number) {
     try {
-      const response4 = await this.http.get('api/v1/programs', { headers: this.headers }).toPromise();
-      this.programs = response4 as any[];
-      console.log(JSON.stringify(response4) + " programas");
+        const response4 = await this.http.get(`api/v1/statistics/programs/${facultyId}`, { headers: this.headers }).toPromise();
+        this.programs = response4 as any[];
+        console.log(JSON.stringify(response4) + " programas para la facultad con ID " + facultyId);
     } catch (error) {
-      console.error('Hubo un error al cargar los programas', error);
+        console.error('Hubo un error al cargar los programas para esta facultad', error);
     }
+}
 
-  }
+async onFacultyChange(event: any) {
+    const facultyName = event.target.value;
+    const facultyId = event.target.options[event.target.selectedIndex].getAttribute('data-id');
+  
+    try {
+        await this.loadPrograms(parseInt(facultyId, 10));
+        console.log('Facultad seleccionada:', facultyName);
+    } catch (error) {
+        console.error('Hubo un error al cargar los programas para esta facultad', error);
+    }
+}
+
   private async loadClassroom() {
     try {
       const response3 = await this.http.get('api/v1/classroom', { headers: this.headers }).toPromise();
@@ -82,7 +88,7 @@ export class CrudCoordReservationComponent implements OnInit{
     } catch (error) {
       console.error('Hubo un error al cargar las facultades', error);
     }
-
+    
   }
 
   async registerReservation(event: any){

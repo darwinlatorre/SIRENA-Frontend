@@ -12,7 +12,7 @@ import { Table } from 'src/app/models/table.model';
 export class BookingViewComponent {
 
   // Aqui va la ruta que de el acceso, este solo es un ejemplo
-  route: string = "booking_view";
+  route: string = "admin_view";
   bookings : Booking[] = [];
   role_nav: string = 'postgraduates';
 

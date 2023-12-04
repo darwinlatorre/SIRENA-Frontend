@@ -48,13 +48,15 @@
                     
                     <div class="px-2 w-full md:w-1/2 mb-4">
                         <label for="facultad" class="block mb-2">Facultad:</label>
-                        <select class="form-control w-full border rounded p-2" id="facultad">
+                        <select class="form-control w-full border rounded p-2" id="facultad" (change)="onFacultyChange($event)">
+                            <option value="" selected disabled>Selecciona una facultad</option>
                             <option *ngFor='let type of faculty' [value]="type.name" [attr.data-id]="type.id">
                                 {{ type.name }}
                             </option>
                         </select>
                     </div>
                     
+                           
                     <div class="px-2 w-full md:w-1/2 mb-4">
                         <label for="programa" class="block mb-2">Programa:</label>
                         <select class="form-control w-full border rounded p-2" id="programa">

@@ -12,6 +12,7 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ShareSelectItemService } from '../services/shareSelectItem/share-select-item.service';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -24,7 +25,8 @@ import { ShareSelectItemService } from '../services/shareSelectItem/share-select
     TableComponent,
     GraphComponent,
     StatisticsComponent,
-    DropdownComponent
+    DropdownComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,

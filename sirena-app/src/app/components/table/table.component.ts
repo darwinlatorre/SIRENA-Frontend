@@ -28,6 +28,8 @@ export class TableComponent {
   textoIngresado: string[] = [];
   desplegableAbierto: boolean[] = [];
   incidenciaEnviada: boolean[] = [];
+  modalAbierto: boolean[] = [];
+  modalIndex: number = -1;
   @Output() datosEnviados = new EventEmitter<any>();
   public tipoIncidencia: any[]=[];
   private headers!: HttpHeaders;
@@ -37,6 +39,7 @@ export class TableComponent {
     this.initializeHeaders();
     this.loadIncidence();
     this.incidenciaEnviada = new Array(this.table.li_content.length).fill(false);
+
   }
   private initializeHeaders(): void {
     const token = localStorage.getItem('jwt');
@@ -49,11 +52,16 @@ export class TableComponent {
       'Authorization': `Bearer ${token}`
     });
   }
-
-  toggleDesplegable(index: number) {
-    this.desplegableAbierto[index] = !this.desplegableAbierto[index];
+  closeModal() {
+    for (let i: number = 0; i < this.modalAbierto.length; i++) {
+      if(this.modalAbierto[i] == true) this.toggleModal(i)
+    }
   }
-
+  toggleModal(i: number) {
+    console.log(`Toggle modal called for index ${i}`);
+    this.modalAbierto[i] = !this.modalAbierto[i];
+    console.log(`Modal state for index ${i}: ${this.modalAbierto[i]}`);
+  }
   // Función para manejar clics en botones
   vShowButton = false;
   debugRow(row: any) {
@@ -72,9 +80,10 @@ export class TableComponent {
   mostrarDesplegable(indice: number) {
     this.indiceDesplegable = indice;
   }
-
-
-
+  camposLlenos(index: number): boolean {
+    return !!this.opcionSeleccionada[index] && !!this.textoIngresado[index];
+  }
+  
   enviarDatos(indice: number) {
     const bookingId = this.table.li_content[indice][0]; // ID de la reserva
   
@@ -91,6 +100,7 @@ export class TableComponent {
     // Mostrar alerta y cerrar desplegable
     window.alert('Incidencia creada');
     this.desplegableAbierto[indice] = false;
+    this.closeModal();
 
     this.incidenciaEnviada[indice] = true;
   }
@@ -101,10 +111,12 @@ export class TableComponent {
       this.tipoIncidencia = response2 as any[];
       console.log(JSON.stringify(response2) + "Incidencias");
       
-      // Asignar la opción seleccionada después de cargar las opciones
-      if (this.tipoIncidencia.length > 0) {
-        this.opcionSeleccionada[0] = this.tipoIncidencia[0].ins_type_name;
+// Asignar la opción seleccionada después de cargar las opciones
+    if (this.tipoIncidencia.length > 0) {
+      for (let i = 0; i < this.table.li_content.length; i++) {
+        this.opcionSeleccionada[i] = this.tipoIncidencia[0].ins_type_name;
       }
+    }
     } catch (error) {
       console.error('Hubo un error al cargar las incidencias', error);
     }

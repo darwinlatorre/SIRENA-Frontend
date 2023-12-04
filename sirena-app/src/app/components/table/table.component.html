@@ -70,58 +70,58 @@
       </ul>
     </div>
   </div>
-  <!-- Vista de Reservas (Booking View) -->
-  <div *ngSwitchCase="'booking_view'">
-    <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
-      <div *ngFor="let title of table.title" class="flex-1 text-center">
-        <h5 class="mb-2 text-sm font-bold tracking-tight text-white">
-          {{ title }}
-        </h5>
-      </div>
+<!-- Vista de Reservas (Booking View) -->
+<div *ngSwitchCase="'booking_view'">
+  <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
+    <div *ngFor="let title of table.title" class="flex-1 text-center">
+      <h5 class="mb-2 text-sm font-bold tracking-tight text-white">
+        {{ title }}
+      </h5>
     </div>
-    <div class="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-2 rounded-b-lg">
-      <ul>
-        <!-- Filas de la tabla -->
-        <li *ngFor="let row of table.li_content; let i = index" class="flex items-center hover:bg-slate-100">
-          {{ debugRow(row) }}
-          <ng-container *ngFor="let cell of row">
-            <div class="flex-1 flex justify-center">
-              <span class="text-[12px]">{{ cell }}</span>
-            </div>
-          </ng-container>
-
-          <!-- Botones de Aceptar y Rechazar (sin *ngIf para prueba) -->
-          <div class="top-0 left-0" *ngIf="userRole === 'coordinator'">
-            <button class="bg-white shadow-md rounded border-1 w-[40px] h-[20px] font-bold ml-8 mt-1 mb-1 text-sm"
-                    (click)="onReservationAction(row[0], 'accept')">✔</button>
-            <button class="bg-white shadow-md rounded border-1 w-[40px] h-[20px] font-bold ml-4 mt-1 mb-1 text-red-600 text-sm"
-                    (click)="onReservationAction(row[0], 'reject')">X</button>
+  </div>
+  <div class="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-2 rounded-b-lg">
+    <ul>
+      <!-- Filas de la tabla -->
+      <li *ngFor="let row of table.li_content; let i = index" class="flex items-center hover:bg-slate-100">
+        <!-- Contenido de la fila de la tabla -->
+        <ng-container *ngFor="let cell of row">
+          <div class="flex-1 flex justify-center">
+            <span class="text-[12px]">{{ cell }}</span>
           </div>
-          
-  <!-- Botón para mostrar/cerrar el desplegable -->
-  <div *ngIf="row[1].trim() === 'Finalizada' && !incidenciaEnviada[i] && userRole !== 'postgraduates'" class="flex-1 flex justify-center">
-    <button (click)="toggleDesplegable(i)" class="bg-white shadow-md rounded border-1 w-[40px] h-[20px] font-bold mt-1 mb-1">
-      {{ desplegableAbierto[i] ? 'Cerrar' : 'Inc' }}
-    </button>
+        </ng-container>
+
+        <!-- Botones de Aceptar y Rechazar (sin *ngIf para prueba) -->
+        <div class="top-0 left-0" *ngIf="userRole === 'coordinator'">
+          <button class="bg-white shadow-md rounded border-1 w-[40px] h-[20px] font-bold ml-8 mt-1 mb-1 text-sm"
+                  (click)="onReservationAction(row[0], 'accept')">✔</button>
+          <button class="bg-white shadow-md rounded border-1 w-[40px] h-[20px] font-bold ml-4 mt-1 mb-1 text-red-600 text-sm"
+                  (click)="onReservationAction(row[0], 'reject')">X</button>
+        </div>
+        
+        <!-- Botón para abrir/cerrar el modal -->
+        <div class="flex-1 flex justify-center">
+          <button *ngIf="row[1].trim() === 'Aceptada' && !incidenciaEnviada[i] && userRole !== 'postgraduates'"
+                  (click)="toggleModal(i)" class="bg-white shadow-md rounded border-1 w-[100px] h-[20px] font-bold mt-1 mb-1">
+            {{ 'Incidencia' }}
+          </button>
+        </div>
+
+        <app-modal class="flex" *ngIf="modalAbierto[i]" (closeModalEvent)="closeModal()">
+          <select [(ngModel)]="opcionSeleccionada[i]" class="bg-white shadow-md rounded border-1 w-[110px] h-[50px] font-bold mt-1 mb-1 mr-6">
+            <option *ngFor='let type of tipoIncidencia' [value]="type.ins_type_name" [attr.data-id]="type.ins_type_id">
+              {{ type.ins_type_name }}
+            </option>
+          </select>
+          <input type="text" [(ngModel)]="textoIngresado[i]" class="bg-white shadow-md rounded border-1 w-[110px] h-[50px] font-bold mt-1 mb-1 mr-6" placeholder="Escribe aquí">
+          <button (click)="enviarDatos(i)" class="bg-white shadow-md rounded border-1 w-[110px] h-[50px] font-bold mt-1 mb-1 mr-6" [disabled]="!camposLlenos(i)">
+            Enviar
+          </button>
+        </app-modal>
+        
+      </li>
+    </ul>
+  </div>
 </div>
-
-  <!-- Desplegable -->
-  <div *ngIf="desplegableAbierto[i]" class="flex-1 flex flex-col items-center">
-    <select [(ngModel)]="opcionSeleccionada[i]" class="bg-white shadow-md rounded border-1 w-[80px] h-[30px] font-bold mt-1 mb-1">
-      <option *ngFor='let type of tipoIncidencia' [value]="type.ins_type_name" [attr.data-id]="type.ins_type_id">
-        {{ type.ins_type_name }}
-      </option>
-    </select>
-    <input type="text" [(ngModel)]="textoIngresado[i]" class="bg-white shadow-md rounded border-1 w-[80px] h-[30px] font-bold mt-1 mb-1" placeholder="Escribe aquí">
-    <button (click)="enviarDatos(i)" class="bg-white shadow-md rounded border-1 w-[80px] h-[30px] font-bold mt-1 mb-1">
-      Enviar
-    </button>
-  </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-
   <div *ngSwitchCase="'building_view'">
     <!-- Titles -->
     <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
@@ -150,7 +150,6 @@
   </div>
 
   <div *ngSwitchCase="'faculty_view'">
-    <!-- Titles -->
     <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
       <div *ngFor="let title of table.title" class="flex-1 text-center">
         <h5 class="mb-2 text-sm font-bold tracking-tight text-white">
@@ -158,8 +157,6 @@
         </h5>
       </div>
     </div>
-
-    <!-- Rows -->
     <div class="bg-white border-gray-200 gap-2 p-2 rounded-b-lg">
       <ul>
         <li
@@ -175,4 +172,30 @@
       </ul>
     </div>
   </div>
+
+  <div *ngSwitchCase="'admin_view'">
+    <div class="bg-black text-white p-2 rounded-t-lg flex gap-2">
+      <div *ngFor="let title of table.title" class="flex-1 text-center">
+        <h5 class="mb-2 text-sm font-bold tracking-tight text-white">
+          {{ title }}
+        </h5>
+      </div>
+    </div>
+    <div class="bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-2 rounded-b-lg">
+      <ul>
+        <!-- Filas de la tabla -->
+        <li *ngFor="let row of table.li_content; let i = index" class="flex items-center hover:bg-slate-100">
+          <!-- Contenido de la fila de la tabla -->
+          <ng-container *ngFor="let cell of row">
+            <div class="flex-1 flex justify-center">
+              <span class="text-[12px]">{{ cell }}</span>
+            </div>
+          </ng-container>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>
+
+

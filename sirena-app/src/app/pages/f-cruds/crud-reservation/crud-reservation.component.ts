@@ -28,7 +28,6 @@ export class CRUDReservationComponent implements OnInit{
     this.loadClassroom();
     this.loadIncidence();
     this.loadFaculty();
-    this.loadPrograms();
   }
 
 
@@ -43,16 +42,16 @@ export class CRUDReservationComponent implements OnInit{
       'Authorization': `Bearer ${token}`
     });
   }
-  private async loadPrograms() {
+  private async loadPrograms(facultyId: number) {
     try {
-      const response4 = await this.http.get('api/v1/programs', { headers: this.headers }).toPromise();
-      this.programs = response4 as any[];
-      console.log(JSON.stringify(response4) + " programas");
+      const response4 = await this.http.get(`api/v1/statistics/programs/${facultyId}`, { headers: this.headers }).toPromise();
+      this.programs = response4 as any[];
+      console.log(JSON.stringify(response4) + " programas para la facultad con ID " + facultyId);
     } catch (error) {
-      console.error('Hubo un error al cargar los programas', error);
+      console.error('Hubo un error al cargar los programas para esta facultad', error);
     }
-
   }
+  
   private async loadClassroom() {
     try {
       const response3 = await this.http.get('api/v1/classroom', { headers: this.headers }).toPromise();
@@ -63,6 +62,16 @@ export class CRUDReservationComponent implements OnInit{
     }
 
   }
+  async onFacultyChange(event: any) {
+    const facultyId = event.target.value;
+  
+    try {
+      await this.loadPrograms(facultyId);
+    } catch (error) {
+      console.error('Hubo un error al cargar los programas para esta facultad', error);
+    }
+  }
+  
   private async loadIncidence() {
     try {
       const response2 = await this.http.get('api/v1/incidence', { headers: this.headers }).toPromise();
@@ -83,6 +92,7 @@ export class CRUDReservationComponent implements OnInit{
     }
 
   }
+
 
   async registerReservation(event: any){
 
