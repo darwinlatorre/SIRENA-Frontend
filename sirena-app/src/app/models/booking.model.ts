@@ -1,3 +1,4 @@
+import { incidence_Booking } from './incidence.model';
 import { User_Booking } from './user_booking.model';
 
 export interface Booking{
@@ -10,7 +11,7 @@ export interface Booking{
     rsv_detalles: string,
     rsv_program_id:number,
     rsv_faculty_id:number,
-    rsv_incidencia_id: number | null,
+    rsv_incidencia: incidence_Booking | null,
     rsv_cls_id: number,
     rsv_usr:User_Booking
 }

@@ -19,7 +19,7 @@ export class BookingCoordViewComponent {
 
   // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
   table_booking: Table = {
-    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa","Aceptar/Denegar",""],
+    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa", "incidencia","Aceptar/Denegar"," "],
     li_content: []
   }; 
 
@@ -55,8 +55,10 @@ export class BookingCoordViewComponent {
             booking.rsv_fecha_solicitud,
             booking.rsv_fecha_reserva_inicio,
             booking.rsv_usr.username,
-            booking.rsv_program_id.toString()
+            booking.rsv_program_id.toString(),
+            booking.rsv_incidencia?.ins_name || ''
           ]);
+          console.log(this.table_booking.li_content);
         },
         error: (err) => {
           console.error('Error fetching classrooms:', err);

@@ -18,7 +18,7 @@ export class BookingViewComponent {
 
   // Un ejemplo de como se debe usar las tablas, con el fetch setearlas
   table_booking: Table = {
-    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa"],
+    title: ["ID","Estado","Salon","Edificio", "Fecha de solicitud", "Fecha de reserva", "Coordinador", "Programa", "incidencia"],
     li_content: []
   }; 
 
@@ -48,14 +48,21 @@ export class BookingViewComponent {
           this.bookings = data;
           this.table_booking.li_content = this.bookings.map(booking => [
             booking.rsv_id.toString(),
-            booking.rsv_estado,
+            booking.rsv_estado || '',
             booking.rsv_cls_id.toString(),
             booking.rsv_faculty_id.toString(),
-            booking.rsv_fecha_solicitud,
-            booking.rsv_fecha_reserva_inicio,
-            booking.rsv_usr.username,
-            booking.rsv_program_id.toString()
-          ]);
+            booking.rsv_fecha_solicitud || '',
+            booking.rsv_fecha_reserva_inicio || '',
+            booking.rsv_usr.username || '',
+            booking.rsv_program_id.toString(),
+            booking.rsv_incidencia?.ins_name || ''
+            
+        ]);
+        console.log(this.table_booking.li_content);
+
+        
+        
+        
         },
         error: (err) => {
           console.error('Error fetching classrooms:', err);
