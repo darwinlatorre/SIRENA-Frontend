@@ -1,4 +1,6 @@
 export interface Statistics{
-    bokings_ids: number[],
-    entity_id: string
+    name: string,
+    reservas_aceptadas:number,
+    reservas_pendientes:number,
+    reservas_rechazadas:number,
 }

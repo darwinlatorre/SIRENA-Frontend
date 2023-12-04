@@ -1,17 +1,27 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Input,Component, ViewChild } from "@angular/core";
 import {
-  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexResponsive,
   ApexXAxis,
-  ApexTitleSubtitle,
+  ApexLegend,
+  ApexFill,
   ChartType,
-} from 'ng-apexcharts';
+  ApexYAxis
+} from "ng-apexcharts";
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
   xaxis: ApexXAxis;
-  title: ApexTitleSubtitle;
+  yaxis: ApexYAxis;
+  legend: ApexLegend;
+  fill: ApexFill;
 };
 
 @Component({
@@ -19,35 +29,65 @@ export type ChartOptions = {
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css'],
 })
+
 export class StatisticsComponent {
   @ViewChild('chart') chart!: ChartComponent;
   @Input() vType!: ChartType;
   @Input() vName!: string;
-  @Input() vData!: number[];
+  @Input() vData!: ApexAxisChartSeries;
   @Input() vText!: string;
   @Input() vChart!: ApexChart;
   @Input() vCategories!: string[];
   public chartOptions!: Partial<ChartOptions>;
 
   ngOnInit(): void {
+    console.log(this.vData);
     this.chartOptions = {
-      series: [
-        {
-          name: this.vName,
-          data: this.vData,
-        },
-      ],
+      series:this.vData,
       chart: {
-        height: 350,
-        
         type: this.vType,
+        height: 350,
+        stacked: true,
+        toolbar: {
+          show: true
+        },
+        zoom: {
+          enabled: true
+        }
       },
-      title: {
-        text: this.vText,
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: "bottom",
+              offsetX: -10,
+              offsetY: 0
+            }
+          }
+        }
+      ],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+        }
       },
       xaxis: {
+        type: "category",
         categories: this.vCategories,
       },
+      yaxis: {
+        title: {
+          text: "Reservas Totales"
+        }
+      },
+      legend: {
+        position: "right",
+        offsetY: 40
+      },
+      fill: {
+        opacity: 1
+      }
     };
   }
 }

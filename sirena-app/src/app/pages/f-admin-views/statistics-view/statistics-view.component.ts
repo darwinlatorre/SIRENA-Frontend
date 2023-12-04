@@ -2,13 +2,9 @@ import { ShareSelectItemService } from './../../../services/shareSelectItem/shar
 import { StatisticsComponent } from './../../../components/statistics/statistics.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ChartOptions } from 'src/app/components/statistics/statistics.component';
 import { delay, switchMap, timeout } from 'rxjs';
 import { Statistics } from 'src/app/models/statistics.model';
-interface Almacenamiento {
-  entity_ids: number[];
-  cantidad_elementos: number;
-}
+import { ApexAxisChartSeries } from 'ng-apexcharts';
 @Component({
   selector: 'app-statistics-view',
   templateUrl: './statistics-view.component.html',
@@ -23,22 +19,27 @@ export class StatisticsViewComponent {
   
 
   //vars
-  
+  v_bool: boolean = false;
   ent_ids!: number;
   role_nav: string = 'postgraduates';
-  option_statistic!: string;
-  booking_count: number[] = [];
-  vBool: boolean = true;
-  option_selected: string = ''
+
   //Inputs
-  categories: string[] = [];
-  data_graph: number[] = [];
+  categories_building: string[] = [];
+  categories_faculty: string[] = [];
+  categories_programs: string[] = [];
+  categories_classroom: string[] = [];
+  //Data
+  data_building: ApexAxisChartSeries = [];
+  data_faculty: ApexAxisChartSeries = [];
+  data_programs: ApexAxisChartSeries = [];
+  data_classroom: ApexAxisChartSeries = [];
+
 
   ngOnInit(): void {
-    this.fetchStatistics();
+    this.fetchStatisticsClassroom();
   }
 
-  fetchStatistics() {
+  fetchStatisticsClassroom() {
     const token = localStorage.getItem('jwt');
 
     if (!token) {
@@ -53,23 +54,130 @@ export class StatisticsViewComponent {
     this.http.get<Statistics>('/api/v1/statistics/classroom', { headers: headers })
       .subscribe({
         next: (data) => {
-          // Verifica que la respuesta tenga la estructura esperada
+          console.log(data);
           if (Array.isArray(data)) {
-            // Almacena los entity_ids y la cantidad de elementos para cada objeto en la respuesta
-            data.map((item) => {
-              this.data_graph.push(item.bokings_ids ? item.bokings_ids.length : 0);
-              this.categories.push(item.entity_id);
-              console.log("LONGITUD",this.data_graph,"IDS",this.categories);
-            });
-            // Aquí puedes hacer más cosas con los resultados si es necesario
+            this.data_classroom = [
+              { name: "RESERVAS ACEPTADAS", data: data.map(item => item.reservas_aceptadas), color: '#2ECC71'},
+              { name: "RESERVAS RECHAZADAS", data: data.map(item => item.reservas_rechazadas), color: '#E74C3C' },
+              { name: "RESERVAS PENDIENTES", data: data.map(item => item.reservas_pendientes), color: '#34495E' }
+          ];
+          data.map((item)=>{
+            this.categories_classroom.push(item.name);
+          })
+          this.v_bool= true;
           } else {
             console.error('Invalid response format:', data);
           }
         },
         error: (err) => {
           console.error('Error fetching classrooms:', err);
-          // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+        }
+      });
+  }
+  fetchStatisticsBuilding() {
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+      console.error('No token found!');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<Statistics>('/api/v1/statistics/building', { headers: headers })
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          if (Array.isArray(data)) {
+            this.data_building = [
+              { name: "RESERVAS ACEPTADAS", data: data.map(item => item.reservas_aceptadas), color: '#2ECC71'},
+              { name: "RESERVAS RECHAZADAS", data: data.map(item => item.reservas_rechazadas), color: '#E74C3C' },
+              { name: "RESERVAS PENDIENTES", data: data.map(item => item.reservas_pendientes), color: '#34495E' }
+          ];
+          data.map((item)=>{
+            this.categories_building.push(item.name);
+          })
+          this.v_bool= true;
+          console.log(this.data_building);
+          } else {
+            console.error('Invalid response format:', data);
+          }
         },
+        error: (err) => {
+          console.error('Error fetching classrooms:', err);
+        }
+      });
+  }
+  fetchStatisticsFaculty() {
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+      console.error('No token found!');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<Statistics>('/api/v1/statistics/faculty', { headers: headers })
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          if (Array.isArray(data)) {
+            this.data_faculty = [
+              { name: "RESERVAS ACEPTADAS", data: data.map(item => item.reservas_aceptadas), color: '#2ECC71'},
+              { name: "RESERVAS RECHAZADAS", data: data.map(item => item.reservas_rechazadas), color: '#E74C3C' },
+              { name: "RESERVAS PENDIENTES", data: data.map(item => item.reservas_pendientes), color: '#34495E' }
+          ];
+          data.map((item)=>{
+            this.categories_faculty.push(item.name);
+          })
+          this.v_bool= true;
+          } else {
+            console.error('Invalid response format:', data);
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching classrooms:', err);
+        }
+      });
+  }
+  fetchStatisticsProgram() {
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+      console.error('No token found!');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<Statistics>('/api/v1/statistics/programs', { headers: headers })
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          if (Array.isArray(data)) {
+            this.data_programs = [
+              { name: "RESERVAS ACEPTADAS", data: data.map(item => item.reservas_aceptadas), color: '#2ECC71'},
+              { name: "RESERVAS RECHAZADAS", data: data.map(item => item.reservas_rechazadas), color: '#E74C3C' },
+              { name: "RESERVAS PENDIENTES", data: data.map(item => item.reservas_pendientes), color: '#34495E' }
+          ];
+          data.map((item)=>{
+            this.categories_programs.push(item.name);
+          })
+          this.v_bool= true;
+          } else {
+            console.error('Invalid response format:', data);
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching classrooms:', err);
+        }
       });
   }
 }

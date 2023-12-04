@@ -1,8 +1,9 @@
 <div class="w-full h-screen">
   <app-nav-side-bar [vRol]="role_nav"></app-nav-side-bar>
-  <app-dropdown></app-dropdown>
-  <div *ngIf="vBool">
-    <app-statistics [vData]="data_graph" [vCategories]="categories" [vText]="option_statistic" [vType]="'bar'"></app-statistics>
-    <app-statistics [vData]="data_graph" [vCategories]="categories" [vText]="option_statistic" [vType]="'area'"></app-statistics>
+  <div *ngIf="v_bool">
+    <app-statistics [vData]="data_classroom" [vCategories]="categories_classroom" [vText]="'Salon'" [vType]="'bar'"></app-statistics>
+    <app-statistics [vData]="data_programs" [vCategories]="categories_programs" [vText]="'Programa'" [vType]="'bar'"></app-statistics>
+    <app-statistics [vData]="data_faculty" [vCategories]="categories_faculty" [vText]="'Facultad'" [vType]="'bar'"></app-statistics>
+    <app-statistics [vData]="data_building" [vCategories]="categories_building" [vText]="'Edificio'" [vType]="'bar'"></app-statistics>
   </div>
 </div>
