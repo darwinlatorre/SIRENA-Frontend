@@ -5,23 +5,25 @@
         <h1 class="text-[30px] font-bold ml-3">
           Reservas Pendientes
         </h1>
-        <swiper-container slides-per-view="4" speed="500" loop="true">
-          <swiper-slide><app-card [card] = reserve_card></app-card></swiper-slide>
-        </swiper-container>
-      </div>
-  
-      <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-        <h1 class="text-[30px] font-bold ml-3">
-          Reservas Confirmadas
-        </h1>
-        <swiper-container slides-per-view="4" speed="500" loop="true">
-          <swiper-slide><app-card [card] = reserve_card></app-card></swiper-slide>
+        <swiper-container slides-per-view="4" speed="500" loop="true" *ngIf="v_bool">
+          <swiper-slide *ngFor="let card of cardsPendientes" ><app-card [card] = card></app-card></swiper-slide>
         </swiper-container>
       </div>
       <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
         <h1 class="text-[30px] font-bold ml-3">
-        GRAPHIC-SECTION[SOON]
+          Reservas Aceptadas
         </h1>
+        <swiper-container slides-per-view="4" speed="500" loop="true" *ngIf="v_bool">
+          <swiper-slide *ngFor="let card of cardsAceptadas" ><app-card [card] = card></app-card></swiper-slide>
+        </swiper-container>
+      </div>
+      <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <h1 class="text-[30px] font-bold ml-3">
+          Reservas Rechazadas
+        </h1>
+        <swiper-container slides-per-view="4" speed="500" loop="true" *ngIf="v_bool">
+          <swiper-slide *ngFor="let card of cardsRechazadas" ><app-card [card] = card></app-card></swiper-slide>
+        </swiper-container>
       </div>
     </div>
   </div>

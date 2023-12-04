@@ -1,4 +1,3 @@
-import { ShareSelectItemService } from './../../../services/shareSelectItem/share-select-item.service';
 import { StatisticsComponent } from './../../../components/statistics/statistics.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -13,8 +12,7 @@ import { ApexAxisChartSeries } from 'ng-apexcharts';
 export class StatisticsViewComponent {
  
   constructor(
-    private http: HttpClient,
-    private ShareSelectItemService: ShareSelectItemService
+    private http: HttpClient
   ) {}
   
 
@@ -36,7 +34,10 @@ export class StatisticsViewComponent {
 
 
   ngOnInit(): void {
-    this.fetchStatisticsClassroom();
+    setTimeout(() => {
+    this.v_bool = true;
+    }, 500);
+   this.getStatistics();
   }
 
   fetchStatisticsClassroom() {
@@ -64,7 +65,6 @@ export class StatisticsViewComponent {
           data.map((item)=>{
             this.categories_classroom.push(item.name);
           })
-          this.v_bool= true;
           } else {
             console.error('Invalid response format:', data);
           }
@@ -99,7 +99,6 @@ export class StatisticsViewComponent {
           data.map((item)=>{
             this.categories_building.push(item.name);
           })
-          this.v_bool= true;
           console.log(this.data_building);
           } else {
             console.error('Invalid response format:', data);
@@ -135,7 +134,6 @@ export class StatisticsViewComponent {
           data.map((item)=>{
             this.categories_faculty.push(item.name);
           })
-          this.v_bool= true;
           } else {
             console.error('Invalid response format:', data);
           }
@@ -170,7 +168,6 @@ export class StatisticsViewComponent {
           data.map((item)=>{
             this.categories_programs.push(item.name);
           })
-          this.v_bool= true;
           } else {
             console.error('Invalid response format:', data);
           }
@@ -179,5 +176,11 @@ export class StatisticsViewComponent {
           console.error('Error fetching classrooms:', err);
         }
       });
+  }
+  getStatistics(){
+    this.fetchStatisticsClassroom();
+    this.fetchStatisticsProgram();
+    this.fetchStatisticsFaculty();
+    this.fetchStatisticsBuilding();
   }
 }

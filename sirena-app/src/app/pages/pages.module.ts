@@ -58,7 +58,8 @@ import { CrudBookingTeacherComponent } from './f-user-views/crud-booking-teacher
     CrudCoordReservationComponent,
     HomeCoordComponent,
     BookingTeacherViewComponent,
-    CrudBookingTeacherComponent
+    CrudBookingTeacherComponent,
+    StatisticsViewComponent
     
   ],
   imports: [
